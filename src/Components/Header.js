@@ -1,25 +1,29 @@
 import React from "react";
-import AppBar from '@mui/material/AppBar';
-import { Container } from '@mui/material';
 import Header__title from "./Header__components/header__title"
 import Header__navigation from './Header__components/header__navigation';
 import Header__authorization from './Header__components/header__authorization';
-import Toolbar from '@mui/material/Toolbar';
-import Dick from "./Body";
+import { AppBar, Container, Stack, IconButton, Toolbar, Typography, Button } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Header() {
 	return (
-		<React.Fragment>
-			<AppBar sx={{ position: 'fixed', background: '#292929' }}>
-				<Container maxWidth='lg'>
-					<Toolbar>
-						<Header__title />
-						<Header__navigation />
-						<Header__authorization />
-					</Toolbar>
-				</Container>
-			</AppBar>
-			<Dick />
-		</React.Fragment>
+		<AppBar position="static" sx={{
+			boxShadow: 'none',
+			background: '#292929'
+		}}>
+			<Container fixed>
+				<Toolbar variant="dense" >
+					<IconButton edge="start"
+						color='inherit' aria-label='menu'>
+						<MenuIcon />
+					</IconButton>
+					<Typography sx={{ flexGrow: 1 }} variant="h6">AVITO-DEMO</Typography>
+					<Stack spacing={2} direction="row" sx={{ color: '#00aaff' }}>
+						<Button variant="contained">Log In</Button>
+						<Button variant="contained">Sign In</Button>
+					</Stack>
+				</Toolbar>
+			</Container>
+		</AppBar>
 	)
 }
