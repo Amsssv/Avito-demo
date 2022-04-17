@@ -1,80 +1,48 @@
 import * as React from 'react';
-import { FormControl, InputLabel, OutlinedInput, InputAdornment } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Left_Bar from './Body__components/leftBar';
+import Cards from './Body__components/card';
+import SelectFilter from './Body__components/filter';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import WindowIcon from '@mui/icons-material/Window';
+import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
+import { Box } from '@mui/material';
+import { createTheme } from '@mui/material';
 
-const drawerWidth = 240;
+const customTheme = createTheme({
+	content: {
+		display: "flex",
+		boxSizing: 'border-box',
+	},
+	viewButton: {
+		display: 'flex',
+		alignItems: 'center'
+	}
+})
 
-export default function Main() {
-
-	const [values, setValues] = React.useState({
-		amount: '',
-	});
-
-	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
-	};
+export default function Body() {
+	const classes = customTheme
 
 	return (
-		<React.Fragment >
-			<Drawer
-				variant="permanent"
-				anchor="left"
-				sx={{
-					'& .MuiDrawer-paper': {
-						width: drawerWidth,
-						boxSizing: 'border-box',
-						position: 'static',
-						border: 'none',
-					},
-				}}>
-				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
-					{['All mail', 'Trash', 'Spam'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
-				</List>
-				<div>
-					<FormControl sx={{ m: 1 }}>
-						<InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-						<OutlinedInput
-							id="outlined-adornment-amount"
-							value={values.amount}
-							onChange={handleChange('amount')}
-							startAdornment={<InputAdornment position="start">$</InputAdornment>}
-							label="Amount"
-						/>
-					</FormControl>
-					<FormControl sx={{ m: 1 }}>
-						<InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-						<OutlinedInput
-							id="outlined-adornment-amount"
-							value={values.amount}
-							onChange={handleChange('amount')}
-							startAdornment={<InputAdornment position="start">$</InputAdornment>}
-							label="Amount"
-						/>
-					</FormControl>
-				</div>
-			</Drawer>
-		</React.Fragment>
+		<Box sx={classes.content}>
+			<Left_Bar />
+			<Box >
+				<Box sx={classes.viewButton}>
+					<ButtonGroup disableElevation variant="contained">
+						<Button>
+							<WindowIcon />
+						</Button>
+						<Button>
+							<ViewHeadlineIcon />
+						</Button>
+					</ButtonGroup>
+					<SelectFilter />
+				</Box>
+				<Cards />
+				<Cards />
+				<Cards />
+			</Box>
+		</Box>
 	);
 
 }
