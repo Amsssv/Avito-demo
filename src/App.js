@@ -10,7 +10,7 @@ export default function App() {
     <>
       <CssBaseline />
       <Header />
-      <Container fixed>
+      <Container >
         <Body />
       </Container>
     </>

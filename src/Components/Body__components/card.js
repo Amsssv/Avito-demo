@@ -2,12 +2,11 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import { createTheme, InputAdornment } from '@mui/material';
+import { Checkbox, createTheme, Grid } from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
 const customTheme = createTheme({
 	card: {
@@ -15,17 +14,17 @@ const customTheme = createTheme({
 		mt: 2,
 	},
 	cardMedia: {
-		flexGrow: 0,
 		width: 300
-	},
-	cardContent: {
-		flexGrow: 1
 	},
 	cardAction: {
 		alignItems: 'flex-start'
 	},
+	date: {
+		mt: 1
+	},
 })
 
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function Cards() {
 
@@ -39,24 +38,33 @@ export default function Cards() {
 				image="https://68.img.avito.st/208x156/13363088268.jpg"
 			/>
 			<div>
-				<CardContent sx={classes.cardContent}>
+				<CardContent >
+					<Grid
+						container
+						justifyContent="space-between"
+						alignItems="top"
+						spacing={2}>
+						<Grid item xs={9}>
+							<Typography gutterBottom variant="h5" >
+								Longboard
+							</Typography>
+						</Grid>
+						<Grid item xs={3}>
+							<Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+							<IconButton aria-label="share">
+								<ShareIcon />
+							</IconButton>
+						</Grid>
+					</Grid>
 					<Typography variant="h6" id='price'>$ 1200</Typography>
 					<Typography color="text.secondary">
 						This impressive paella is a perfect party dish and a fun meal to cook
 						together with your guests. Add 1 cup of frozen peas along with the mussels,
 						if you like.
 					</Typography>
-					<Typography>{(new Date().toISOString().slice(0, 10))}</Typography>
+					<Typography sx={classes.date}>{(new Date().toISOString().slice(0, 10))}</Typography>
 				</CardContent>
 			</div>
-			<CardActions sx={classes.cardAction}>
-				<IconButton aria-label="add to favorites">
-					<FavoriteIcon />
-				</IconButton>
-				<IconButton aria-label="share">
-					<ShareIcon />
-				</IconButton>
-			</CardActions>
-		</Card>
+		</Card >
 	);
 }

@@ -25,8 +25,8 @@ export default function SelectFilter() {
 		<div>
 			<FormControl sx={classes.filter} size="small">
 				<Select value={select} onChange={handleChange}>
-					{Items.map((item) => (
-						<MenuItem value={item}>{item}</MenuItem>
+					{Items.map((item, index) => (
+						<MenuItem key={item[index]} value={item}>{item}</MenuItem>
 					))}
 				</Select>
 			</FormControl>

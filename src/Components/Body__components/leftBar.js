@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, InputLabel, OutlinedInput, InputAdornment } from '@mui/material';
+import { FormControl, InputLabel, OutlinedInput, InputAdornment, Button } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -25,14 +25,22 @@ const customTheme = createTheme({
 			boxSizing: 'border-box',
 			position: 'static',
 			border: 'none',
+		},
+		display: {
+			xs: 'none',
+			md: 'block'
 		}
 	},
 	control: {
 		marginBottom: 2
+	},
+	submit: {
+		mt: 2,
+		mr: 1.5,
 	}
 })
 
-export default function Left_Bar() {
+export default function LeftBar() {
 
 	const classes = customTheme
 
@@ -42,7 +50,10 @@ export default function Left_Bar() {
 	});
 
 	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
+		const re = /^[0-9\b]+$/;
+		if (event.target.value === '' || re.test(event.target.value)) {
+			setValues({ ...values, [prop]: event.target.value });
+		}
 	};
 
 	return (
@@ -68,7 +79,6 @@ export default function Left_Bar() {
 							startAdornment={<InputAdornment position="start">$</InputAdornment>}
 							label="Lowest"
 							placeholder='100'
-							type='number'
 						/>
 					</FormControl>
 					<FormControl >
@@ -80,10 +90,10 @@ export default function Left_Bar() {
 							startAdornment={<InputAdornment position="start">$</InputAdornment>}
 							label="Highest"
 							placeholder='1000'
-							type='number'
 						/>
 					</FormControl>
 				</div>
+				<Button variant="contained" sx={classes.submit}>Apply</Button>
 			</Drawer>
 		</React.Fragment >
 	);
