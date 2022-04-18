@@ -1,19 +1,9 @@
 import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
-import { createTheme } from '@mui/material';
 
 const Items = ["By default", "Cheaper", "Expensive", "By date"]
 
-const customTheme = createTheme({
-	filter: {
-		margin: 1,
-		minWidth: 200
-	}
-})
-
-export default function SelectFilter() {
-
-	const classes = customTheme
+export default function PostFilter() {
 
 	const [select, setSelect] = React.useState("By default");
 
@@ -23,7 +13,10 @@ export default function SelectFilter() {
 
 	return (
 		<div>
-			<FormControl sx={classes.filter} size="small">
+			<FormControl sx={{
+				margin: 1,
+				minWidth: 200
+			}} size="small">
 				<Select value={select} onChange={handleChange}>
 					{Items.map((item, index) => (
 						<MenuItem key={item[index]} value={item}>{item}</MenuItem>
