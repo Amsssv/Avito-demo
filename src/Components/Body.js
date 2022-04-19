@@ -3,6 +3,8 @@ import LeftBar from './Body__components/leftBar';
 import { Box, } from '@mui/material';
 import List from './Body__components/list';
 
+import {Provider} from "../provider";
+
 export default function Body() {
 
 	return (
@@ -10,8 +12,10 @@ export default function Body() {
 			display: "flex",
 			boxSizing: 'border-box'
 		}}>
-			<LeftBar />
-			<List />
+			<Provider>
+				<LeftBar />
+				<List />
+			</Provider>
 		</Box>
 	);
 

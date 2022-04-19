@@ -3,6 +3,7 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
+	devtool: 'source-map',
 	mode: 'development',
 	entry: './src/index.js',
 	module: {
@@ -13,7 +14,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						cacheDirectory: true,
+						presets: ['@babel/preset-env', '@babel/preset-react'],
 					},
 				},
 			},
