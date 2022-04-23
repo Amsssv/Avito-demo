@@ -1,9 +1,9 @@
 import * as React from 'react';
-import LeftBar from './Body__components/leftBar';
+import LeftBar from './body/leftBar';
 import { Box, } from '@mui/material';
-import List from './Body__components/list';
+import List from './body/list';
 
-import {Provider} from "../provider";
+import { Provider } from "../provider";
 
 export default function Body() {
 
