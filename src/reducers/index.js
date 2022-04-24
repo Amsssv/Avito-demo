@@ -28,45 +28,45 @@ export const initialState = {
     filtered: items.map((item) => item.id),
 }
 
-const cheapest = []
-
-function compareNumbers(a, b) {
-    return a - b;
-}
-
-const prices = (items.map((item) => item.price)).sort(compareNumbers)
-
-const filter = () => {
-    for (let a = 0; a < items.length; a++) {
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].price === prices[a]) {
-                cheapest.push(items[i].id)
+function sort(state) {
+    const cheapest = []
+    function compareNumbers(a, b) {
+        return a - b;
+    };
+    const prices = (state.items.map((item) => item.price)).sort(compareNumbers);
+    (function filter() {
+        for (let a = 0; a < state.items.length; a++) {
+            for (let i = 0; i < state.items.length; i++) {
+                if (state.items[i].price === prices[a]) {
+                    cheapest.push(state.items[i].id)
+                }
             }
         }
-    }
+    })()
+    return cheapest
 }
-filter()
-
 
 
 const reducers = (state, action) => {
     switch (action.type) {
         case UPDATE_FILTER: return {
             ...state,
-            filtered: state.items
-                .filter(({ price }) =>
-                    parseInt(price) >= parseInt(action.payload.minPrice) && parseInt(action.payload.maxPrice) >= parseInt(price)
-                ).map(({ id }) => id)
+            filtered:
+                state.items
+                    .filter(({ price }) =>
+                        parseInt(price) >= parseInt(action.payload.minPrice) && parseInt(action.payload.maxPrice) >= parseInt(price)
+                    ).map(({ id }) => id)
         };
+        case "By default":
+            return initialState;
         case "Cheaper": return {
             ...state,
-            filtered: cheapest
+            filtered: sort(state)
         };
         case "Expensive": return {
             ...state,
-            filtered: [1, 3]
+            filtered: sort(state).reverse()
         };
-
         default: return state;
     }
 }
