@@ -1,8 +1,16 @@
-export const UPDATE_FILTER = "UPDATE_FILTER";
+export const FILTER_PRICE = "FILTER_PRICE";
+export const SORT = "SORT";
 
-export const updateFilter = (minPrice, maxPrice) => {
+export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {
-        type: UPDATE_FILTER,
-        payload:{minPrice, maxPrice}
+        type: FILTER_PRICE,
+        payload:{minPrice, maxPrice},
+    }
+}
+
+export const sort = (sort = null) => {
+    return {
+        type: SORT,
+        payload: {sort},
     }
 }

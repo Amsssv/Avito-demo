@@ -1,10 +1,10 @@
 import React from "react";
 import { AppBar, Container, Stack, Box, Toolbar } from "@mui/material";
-import Authorization from "./header/authorization";
-import Tittle from "./header/title";
-import Favorite from "./header/favorite";
-import Navigation from "./header/navigation";
-import MobileNavigation from "./header/mobileComponents/mobileNavigation";
+import Authorization from "./headerComponents/authorization";
+import Tittle from "./headerComponents/title";
+import Favorite from "./headerComponents/favorite";
+import Navigation from "./headerComponents/navigation";
+import MobileNavigation from "./headerComponents/mobileComponents/mobileNavigation";
 
 export default function Header() {
 
