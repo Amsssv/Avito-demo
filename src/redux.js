@@ -6,8 +6,8 @@ const defaultReducers = () => {
 };
 
 
-export const createStore = (reducers = defaultReducers, initialState = {}, enhancer = []) => {
-    let state = initialState;
+export const createStore = (reducers = defaultReducers, initialState = null, enhancer = []) => {
+    let state = initialState !== null ? initialState : reducers(undefined, {});
 
     const store = {
         get state() {
@@ -18,7 +18,7 @@ export const createStore = (reducers = defaultReducers, initialState = {}, enhan
             if (enhancer.length === 0) {
                 state = reducers(state, action)
             } else {
-                const promises = enhancer.map(middleware => new Promise(resolve => middleware(store)(() => resolve())(action)));
+                const promises = enhancer.map(middleware => new Promise(resolve => middleware(store)((nextAction) => resolve())(action)));
 
                 Promise.all(promises).then(data => {
                     state = reducers(state, action)

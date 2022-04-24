@@ -1,10 +1,10 @@
 import React from "react";
 import Post from "./post";
-import {useRedux} from "../../../provider";
 import {getSortFunction, filterItemsByPrice} from "../../../utils";
+import {useSelector} from "../../../redux";
 
 export default function Posts() {
-    const {state} = useRedux();
+    const state = useSelector();
     const items = filterItemsByPrice([...state.items].sort(getSortFunction(state.sort)), state.minPrice, state.maxPrice);
     return (
         <>

@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import {FormControl, InputLabel, OutlinedInput, InputAdornment, Button} from '@mui/material';
-import {useRedux} from "../../../provider";
-import {filterPrice, updateFilter} from "../../../actions";
+import {filterPrice} from "../../../actions";
+import {useDispatch, useSelector} from "../../../redux";
 
 const regexp = new RegExp(/^[0-9\b]+$/);
 const isValid = value => regexp.test(value);
 
 export default function PriceFilter() {
-    const {state, dispatch} = useRedux();
+    const state = useSelector();
+    const dispatch = useDispatch();
     const [minPrice, setMinPrice] = useState(state.minPrice);
     const [maxPrice, setMaxPrice] = useState(state.maxPrice);
 

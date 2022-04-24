@@ -32,8 +32,7 @@ export const initialState = {
     filtered: items.map((item) => item.id),
 }
 
-const reducers = (state, action) => {
-    console.log('reducer');
+const reducers = (state = initialState, action) => {
     switch (action.type) {
         case FILTER_PRICE:
             return {

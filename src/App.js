@@ -1,18 +1,24 @@
 import React from 'react';
-import { Container, CssBaseline } from '@mui/material';
+import {Container, CssBaseline} from '@mui/material';
 import Header from './Components/Header';
 import Body from './Components/Body';
 
+import {Provider, createStore} from "./redux";
+import reducers from "./reducers";
+import {fetchItems} from "./middlewares";
+
+
+const store = createStore(reducers, null, [fetchItems]);
 
 export default function App() {
 
-  return (
-    <>
-      <CssBaseline />
-      <Header />
-      <Container >
-        <Body />
-      </Container>
-    </>
-  );
+    return (
+        <Provider store={store}>
+            <CssBaseline/>
+            <Header/>
+            <Container>
+                <Body/>
+            </Container>
+        </Provider>
+    );
 }

@@ -1,7 +1,6 @@
 import {sort} from './constants';
 
 export const getSortFunction = (value) => {
-    debugger;
     switch (value) {
         case sort.ASC_DATE:return () => {};
         case sort.DESC_DATE:return () => {};

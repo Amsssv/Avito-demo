@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
 import {sort as sortBy} from "../../../constants";
-import {useRedux} from "../../../provider";
 import {sort} from "../../../actions";
+import {useSelector, useDispatch} from "../../../redux";
 const options = {
 	[sortBy.ASC_PRICE]:"by lowest price",
 	[sortBy.DESC_PRICE]: "by higher price",
@@ -11,7 +11,8 @@ const options = {
 }
 
 export default function PostFilter() {
-	const {state, dispatch}  = useRedux();
+	const state = useSelector();
+	const dispatch = useDispatch();
 	const [select, setSelect] = React.useState(state.sort);
 
 	const handleChange = (event) => {
