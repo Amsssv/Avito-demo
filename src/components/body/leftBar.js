@@ -23,14 +23,11 @@ const customTheme = createTheme({
 })
 
 export default function LeftBar() {
-
-	const classes = customTheme
-
+	const classes = customTheme;
 	return (
 		<Drawer variant="permanent" anchor="left" sx={classes.drawer}>
 			<ItemsFilter />
 			<PriceFilter />
 		</Drawer>
 	);
-
 }
