@@ -1,4 +1,4 @@
-import {FILTER_PRICE, SORT} from "../actions";
+import {FILTER_PRICE, PAGINATE, SORT} from "../actions";
 import {sort} from "../constants";
 
 const items = [{
@@ -22,6 +22,55 @@ const items = [{
     isFavorite: false,
     price: 800,
     description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 4,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 5,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 6,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 7,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 8,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 9,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+}, {
+    id: 10,
+    image: "https://68.img.avito.st/208x156/13363088268.jpg",
+    title: "Longboard",
+    isFavorite: false,
+    price: 800,
+    description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
 }];
 
 export const initialState = {
@@ -30,6 +79,7 @@ export const initialState = {
     minPrice: 0,
     maxPrice: 999999,
     filtered: items.map((item) => item.id),
+    page: 1,
 }
 
 const reducers = (state = initialState, action) => {
@@ -43,6 +93,10 @@ const reducers = (state = initialState, action) => {
         case SORT: return {
             ...state,
             sort: action.payload.sort
+        }
+        case PAGINATE: return {
+            ...state,
+            page: action.payload.page
         }
         default:
             return state;

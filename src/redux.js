@@ -1,4 +1,4 @@
-import React, {Component, useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 
 const Context = React.createContext();
 
@@ -35,7 +35,7 @@ export const connect = (mapStateToProps, mapDispatchToProps) => Component => pro
     const connectedProps = {
         ...props, ...mapStateToProps(store.state), ...mapDispatchToProps(store.dispatch)
     }
-    return <Component {...connectedProps}/>
+    return <Component {...connectedProps} />
 }
 
 export const useDispatch = () => {
@@ -62,7 +62,7 @@ export const useSelector = (selectorFn) => {
     return store.state;
 }
 
-export const Provider = ({children, store = null}) => {
+export const Provider = ({ children, store = null }) => {
     console.log(store)
     if (store === null) {
         throw new Error("Store is undefined");

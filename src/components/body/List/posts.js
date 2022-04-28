@@ -3,12 +3,20 @@ import Post from "./post";
 import {getSortFunction, filterItemsByPrice} from "../../../utils";
 import {useSelector} from "../../../redux";
 
-export default function Posts() {
+
+export const filtredItems = () => {
     const state = useSelector();
     const items = filterItemsByPrice([...state.items].sort(getSortFunction(state.sort)), state.minPrice, state.maxPrice);
-    return (
+    return items
+}
+
+export default function Posts() {
+    const state = useSelector();
+    const cards = filtredItems().slice(((state.page * 3) - 3), (state.page * 3));
+
+     return (
         <>
-            {items.map(({id, ...rest}) => <Post key={id} {...rest}/>)}
+            {cards.map(({id, ...rest}) => <Post key={id} {...rest}/>)}
         </>
     )
 }

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
-import {sort as sortBy} from "../../../constants";
-import {sort} from "../../../actions";
-import {useSelector, useDispatch} from "../../../redux";
+import { sort as sortBy } from "../../../constants";
+import { sort } from "../../../actions";
+import { useSelector, useDispatch } from "../../../redux";
+
 const options = {
-	[sortBy.ASC_PRICE]:"by lowest price",
+	[sortBy.ASC_PRICE]: "by lowest price",
 	[sortBy.DESC_PRICE]: "by higher price",
-	[sortBy.ASC_DATE]:"newest",
+	[sortBy.ASC_DATE]: "newest",
 	[sortBy.DESC_DATE]: "oldest"
 }
 
@@ -20,7 +21,7 @@ export default function PostFilter() {
 		setSelect(event.target.value);
 	};
 
-	const items = Object.entries(options).map(([value, label]) => ({label, value}));
+	const items = Object.entries(options).map(([value, label]) => ({ label, value }));
 	return (
 		<div>
 			<FormControl sx={{
