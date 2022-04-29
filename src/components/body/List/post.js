@@ -7,12 +7,17 @@ import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
 import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
-
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+import {paginate} from "../../../actions";
 
 
 export default function Post(props) {
     const {image, title, price, isFavorite, description} = props
+
+    const setFavoritePost = (event) => {
+        let isFavorite = event.target.value;
+    };
+
+
     return (
         <Card sx={{
             display: 'flex',
@@ -35,7 +40,7 @@ export default function Post(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Checkbox {...label} icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} checked={isFavorite}/>
+                        <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite} onChange={setFavoritePost}/>
                         <IconButton aria-label="share">
                             <ShareIcon/>
                         </IconButton>

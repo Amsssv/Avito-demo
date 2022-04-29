@@ -22,6 +22,7 @@ export default function PostFilter() {
 	};
 
 	const items = Object.entries(options).map(([value, label]) => ({ label, value }));
+
 	return (
 		<div>
 			<FormControl sx={{

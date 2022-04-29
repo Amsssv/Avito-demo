@@ -13,7 +13,6 @@ export const filtredItems = () => {
 export default function Posts() {
     const state = useSelector();
     const cards = filtredItems().slice(((state.page * 3) - 3), (state.page * 3));
-
      return (
         <>
             {cards.map(({id, ...rest}) => <Post key={id} {...rest}/>)}
