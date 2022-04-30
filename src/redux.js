@@ -63,7 +63,6 @@ export const useSelector = (selectorFn) => {
 }
 
 export const Provider = ({ children, store = null }) => {
-    console.log(store)
     if (store === null) {
         throw new Error("Store is undefined");
     }

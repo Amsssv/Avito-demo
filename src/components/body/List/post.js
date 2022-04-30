@@ -7,16 +7,12 @@ import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
 import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
-import {paginate} from "../../../actions";
+import {useDispatch, useSelector} from "../../../redux";
 
 
 export default function Post(props) {
+    const dispatch = useDispatch();
     const {image, title, price, isFavorite, description} = props
-
-    const setFavoritePost = (event) => {
-        let isFavorite = event.target.value;
-    };
-
 
     return (
         <Card sx={{
@@ -40,7 +36,7 @@ export default function Post(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite} onChange={setFavoritePost}/>
+                        <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite} />
                         <IconButton aria-label="share">
                             <ShareIcon/>
                         </IconButton>
