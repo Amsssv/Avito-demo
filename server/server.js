@@ -1,23 +1,42 @@
 const express = require("express");
-// const path = require("path");
 const items = require('./data.json');
 const app = express();
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
 
 app.set('view engine', 'html');
 app.set('views', './');
 app.use(express.static("dist"));
 
-const config = require('../webpack.config.js');
-const compiler = webpack(config);
+const filterByPrice = (minPrice, maxPrice) => items.filter(({price}) => price >= minPrice && maxPrice >= price);
+const filterByPage = (items, pageNumber) => items.slice(((pageNumber * 3) - 3), (pageNumber * 3));
+const getSortFunction = (value) => {
+    switch (value) {
+        case "asc_price":return (a, b) => {
+            if (a.price < b.price) {
+                return -1;
+            }
+            if (a.price > b.price) {
+                return 1;
+            }
+            return 0;
+        };
+        case "desc_price": return  (a, b) => {
+            if (b.price < a.price) {
+                return -1;
+            }
+            if (b.price > a.price) {
+                return 1;
+            }
+            return 0;
+        };
+    }
+};
+const sortBy = (items, sortValue) => items.sort(getSortFunction(sortValue));
 
-app.use(
-    webpackDevMiddleware(compiler, {
-        publicPath: config.output.publicPath,
-    })
-);
+const filterItems = (items, pageNumber , minPrice, maxPrice, sort) => filterByPage(sortBy(filterByPrice(minPrice, maxPrice), sort), pageNumber)
 
-app.get('/items', (req, res) => res.send(items))
+
+app.get('/items', (req, res) => {
+    return res.send(filterItems(items, req.query.page, req.query.minPrice, req.query.maxPrice, req.query.sort))
+})
 
 app.listen(3000, () => console.log(`Example app listening on port http://localhost:3000`));

@@ -31,7 +31,7 @@ export default function PostFilter() {
 			}} size="small">
 				<Select value={select} onChange={handleChange}>
 					{items.map((item, index) => (
-						<MenuItem key={item[index]} value={item.value}>{item.label}</MenuItem>
+						<MenuItem key={index} value={item.value}>{item.label}</MenuItem>
 					))}
 				</Select>
 			</FormControl>

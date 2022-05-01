@@ -1,4 +1,4 @@
-import {FILTER_PRICE, SORT} from "../actions";
+import {FILTER_PRICE, SORT } from "../actions/types";
 
 export const fetchItems = ({dispatch}) => next => action => {
     if (action.type === FILTER_PRICE) {
@@ -15,3 +15,4 @@ export const fetchItems = ({dispatch}) => next => action => {
 
     return next(action);
 }
+

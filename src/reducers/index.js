@@ -1,13 +1,12 @@
-import {FAVORITE, FILTER_PRICE, PAGINATE, SORT} from "../actions";
+import {FILTER_PRICE, PAGINATE, SORT} from "../actions/types";
 import {sort} from "../constants";
-
 
 const items = [{
     id: 1,
     image: "https://68.img.avito.st/208x156/13363088268.jpg",
     title: "Longboard",
     isFavorite: false,
-    price: 1200,
+    price: 300,
     description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
 }, {
     id: 2,
@@ -74,13 +73,6 @@ const items = [{
     description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
 }];
 
-// const Fetchitems = () => {fetch("http://localhost:3000/items")
-//     .then((response) => response.json())
-//     .then((result) => console.log(result))
-// };
-//
-// const items = Fetchitems()
-
 export const initialState = {
     items: items,
     sort: sort.ASC_PRICE,
@@ -107,11 +99,6 @@ const reducers = (state = initialState, action) => {
             return {
                 ...state,
                 page: action.payload.page
-            };
-        case FAVORITE:
-            return {
-                ...state,
-                favorite: action.payload.like
             };
         default:
             return state;

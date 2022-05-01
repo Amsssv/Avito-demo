@@ -1,8 +1,4 @@
-export const FILTER_PRICE = "FILTER_PRICE";
-export const SORT = "SORT";
-export const PAGINATE = "PAGINATE";
-export const FAVORITE = "FAVORITE"
-
+import {FILTER_PRICE, SORT, PAGINATE} from "./types"
 
 export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {
@@ -24,10 +20,5 @@ export const paginate = (page = null) => {
         payload: {page},
     }
 }
-export const setFavorite = (like = true) => {
-    return {
-        type: FAVORITE,
-        payload: {like},
-    }
-}
+
 

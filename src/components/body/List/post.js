@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
 import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
-import {useDispatch, useSelector} from "../../../redux";
+
 
 
 export default function Post(props) {
-    const dispatch = useDispatch();
+
     const {image, title, price, isFavorite, description} = props
 
     return (
