@@ -26671,6 +26671,8 @@ function App() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchFirstItems": function() { return /* binding */ fetchFirstItems; },
+/* harmony export */   "fetchsomething": function() { return /* binding */ fetchsomething; },
 /* harmony export */   "filterPrice": function() { return /* binding */ filterPrice; },
 /* harmony export */   "paginate": function() { return /* binding */ paginate; },
 /* harmony export */   "sort": function() { return /* binding */ sort; }
@@ -26706,6 +26708,24 @@ var paginate = function paginate() {
     }
   };
 };
+var fetchFirstItems = function fetchFirstItems() {
+  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return {
+    type: FETCH_ITEMS,
+    payload: {
+      items: items
+    }
+  };
+};
+var fetchsomething = function fetchsomething() {
+  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.FETCH,
+    payload: {
+      items: items
+    }
+  };
+};
 
 /***/ }),
 
@@ -26719,6 +26739,7 @@ var paginate = function paginate() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FAVORITE": function() { return /* binding */ FAVORITE; },
+/* harmony export */   "FETCH": function() { return /* binding */ FETCH; },
 /* harmony export */   "FILTER_PRICE": function() { return /* binding */ FILTER_PRICE; },
 /* harmony export */   "PAGINATE": function() { return /* binding */ PAGINATE; },
 /* harmony export */   "SORT": function() { return /* binding */ SORT; }
@@ -26727,6 +26748,7 @@ var FILTER_PRICE = "FILTER_PRICE";
 var SORT = "SORT";
 var PAGINATE = "PAGINATE";
 var FAVORITE = "FAVORITE";
+var FETCH = "FETCH";
 
 /***/ }),
 
@@ -27068,31 +27090,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
-/* harmony import */ var _posts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./posts */ "./src/components/body/List/posts.js");
-/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
+/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
 
 
 function PostPagination() {
-  var items = (0,_posts__WEBPACK_IMPORTED_MODULE_1__.filtredItems)();
-  var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)();
+
+  var items = _toConsumableArray(state.items);
+
+  var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var pageNumber = function pageNumber(event) {
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.paginate)(event.target.innerText));
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(event.target.innerText));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     spacing: 2,
     sx: {
       alignItems: 'center',
       padding: 3
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     count: Math.ceil(items.length / 3),
     size: "large",
     onClick: pageNumber
@@ -27110,14 +27145,12 @@ function PostPagination() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ Posts; },
-/* harmony export */   "filtredItems": function() { return /* binding */ filtredItems; }
+/* harmony export */   "default": function() { return /* binding */ Posts; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post */ "./src/components/body/List/post.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils */ "./src/utils.js");
-/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
+/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
 var _excluded = ["id"];
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -27141,15 +27174,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-
-var filtredItems = function filtredItems() {
-  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)();
-  var items = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.filterItemsByPrice)(_toConsumableArray(state.items).sort((0,_utils__WEBPACK_IMPORTED_MODULE_2__.getSortFunction)(state.sort)), state.minPrice, state.maxPrice);
-  return items;
-};
 function Posts() {
-  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)();
-  var cards = filtredItems().slice(state.page * 3 - 3, state.page * 3);
+  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)();
+
+  var cards = _toConsumableArray(state.items);
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, cards.map(function (_ref) {
     var id = _ref.id,
         rest = _objectWithoutProperties(_ref, _excluded);
@@ -27365,15 +27394,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Authorization; }
 /* harmony export */ });
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../redux */ "./src/redux.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./src/actions/index.js");
+
+
 
 
 function Authorization() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    variant: "contained"
-  }, "Log In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    variant: "contained",
+    onClick: function onClick() {
+      return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.fetchsomething)());
+    }
+  }, "Log In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     variant: "contained"
   }, "Sign In"));
 }
@@ -27689,13 +27726,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchItems": function() { return /* binding */ fetchItems; }
 /* harmony export */ });
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./src/actions/types.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
+
 
 var fetchItems = function fetchItems(_ref) {
   var dispatch = _ref.dispatch;
   return function (next) {
     return function (action) {
+      if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FETCH) {
+        fetch('/items?page=2&minPrice=0&maxPrice=99999&sort=asc_price').then(function (responce) {
+          return responce.json();
+        }).then(function (json) {
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.fetchsomething)(json));
+        });
+      }
+
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/url", {
+        fetch("/items", {
           method: "GET"
         }).then(function (data) {
           dispatch();
@@ -27703,7 +27750,7 @@ var fetchItems = function fetchItems(_ref) {
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
-        fetch("/url", {
+        fetch("/items", {
           method: "GET"
         }).then(function (data) {
           dispatch();
@@ -27738,85 +27785,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var items = [{
-  id: 1,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 300,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 2,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 500,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 3,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 800,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 4,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 990,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 5,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 3700,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 6,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 750,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 7,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: false,
-  price: 400,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 8,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: true,
-  price: 4500,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 9,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: true,
-  price: 700,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}, {
-  id: 10,
-  image: "https://68.img.avito.st/208x156/13363088268.jpg",
-  title: "Longboard",
-  isFavorite: true,
-  price: 1800,
-  description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
-}];
 var initialState = {
-  items: items,
+  items: [],
   sort: _constants__WEBPACK_IMPORTED_MODULE_1__.sort.ASC_PRICE,
   minPrice: 0,
   maxPrice: 999999,
-  filtered: items.map(function (item) {
-    return item.id;
-  }),
   page: 1
 };
 
@@ -27839,6 +27812,11 @@ var reducers = function reducers() {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE:
       return _objectSpread(_objectSpread({}, state), {}, {
         page: action.payload.page
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FETCH:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        items: action.payload.items
       });
 
     default:
@@ -27985,64 +27963,6 @@ var Provider = function Provider(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Context.Provider, {
     value: newStore
   }, children);
-};
-
-/***/ }),
-
-/***/ "./src/utils.js":
-/*!**********************!*\
-  !*** ./src/utils.js ***!
-  \**********************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "filterItemsByPrice": function() { return /* binding */ filterItemsByPrice; },
-/* harmony export */   "getSortFunction": function() { return /* binding */ getSortFunction; }
-/* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/constants/index.js");
-
-var getSortFunction = function getSortFunction(value) {
-  switch (value) {
-    case _constants__WEBPACK_IMPORTED_MODULE_0__.sort.ASC_DATE:
-      return function () {};
-
-    case _constants__WEBPACK_IMPORTED_MODULE_0__.sort.DESC_DATE:
-      return function () {};
-
-    case _constants__WEBPACK_IMPORTED_MODULE_0__.sort.ASC_PRICE:
-      return function (a, b) {
-        if (a.price < b.price) {
-          return -1;
-        }
-
-        if (a.price > b.price) {
-          return 1;
-        }
-
-        return 0;
-      };
-
-    case _constants__WEBPACK_IMPORTED_MODULE_0__.sort.DESC_PRICE:
-      return function (a, b) {
-        if (b.price < a.price) {
-          return -1;
-        }
-
-        if (b.price > a.price) {
-          return 1;
-        }
-
-        return 0;
-      };
-  }
-};
-var filterItemsByPrice = function filterItemsByPrice(items, minPrice, maxPrice) {
-  return items.filter(function (_ref) {
-    var price = _ref.price;
-    return price >= minPrice && maxPrice >= price;
-  });
 };
 
 /***/ }),

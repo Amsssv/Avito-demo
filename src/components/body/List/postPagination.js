@@ -1,11 +1,11 @@
 import React from "react";
 import { Pagination, Stack } from "@mui/material";
-import {filtredItems} from "./posts";
-import {useDispatch} from "../../../redux";
+import {useDispatch, useSelector} from "../../../redux";
 import {paginate} from "../../../actions";
 
 export default function PostPagination() {
-	const items = filtredItems();
+	const state = useSelector();
+	const items = [...state.items]
 	const dispatch = useDispatch();
 
 	const pageNumber = (event) => {

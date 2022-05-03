@@ -39,4 +39,8 @@ app.get('/items', (req, res) => {
     return res.send(filterItems(items, req.query.page, req.query.minPrice, req.query.maxPrice, req.query.sort))
 })
 
+app.get('/cards', (req, res) => {
+    return res.send(items)
+})
+
 app.listen(3000, () => console.log(`Example app listening on port http://localhost:3000`));
