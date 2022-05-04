@@ -4,7 +4,7 @@ import {Box,} from '@mui/material';
 import List from './list';
 import {useEffect} from "react";
 import {getItems, getTotalPages} from "../../actions";
-import {useDispatch} from "../../redux";
+import {useDispatch} from "react-redux";
 import {initialState} from "../../reducers";
 
 export default function Body() {
