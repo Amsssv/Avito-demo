@@ -2,19 +2,20 @@ import React, {useEffect, useState} from "react";
 import { Pagination, Stack } from "@mui/material";
 import {useDispatch} from "../../../redux";
 import {getItems, paginate} from "../../../actions";
-
+import {initialState} from "../../../reducers";
 
 export default function PostPagination() {
-	const dispatch = useDispatch();
 
+	const dispatch = useDispatch();
+	const state = initialState
 	const pageNumber = (event) => {
 		dispatch(paginate(event.target.innerText))
 	};
 
-	const [pages, setPages] = useState('')
+	const [pages, setPages] = useState()
 
 	useEffect( () => {
-		fetch("/items?page=1&minPrice=0&maxPrice=99999&sort=asc_price")
+		fetch(`/items?page=${state.page}&minPrice=${state.minPrice}&maxPrice=${state.maxPrice}&sort=${state.sort}`)
 			.then(res => res.json())
 			.then(data => {
 				dispatch(getItems(data.items));

@@ -27080,10 +27080,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../reducers */ "./src/reducers/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -27100,33 +27101,35 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function PostPagination() {
   var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var state = _reducers__WEBPACK_IMPORTED_MODULE_3__.initialState;
 
   var pageNumber = function pageNumber(event) {
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(event.target.innerText));
   };
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
       pages = _useState2[0],
       setPages = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetch("/items?page=1&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+    fetch("/items?page=".concat(state.page, "&minPrice=").concat(state.minPrice, "&maxPrice=").concat(state.maxPrice, "&sort=").concat(state.sort)).then(function (res) {
       return res.json();
     }).then(function (data) {
       dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getItems)(data.items));
       setPages(data.pages);
     });
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     spacing: 2,
     sx: {
       alignItems: 'center',
       padding: 3
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     count: pages,
     size: "large",
     onClick: pageNumber
@@ -27725,18 +27728,26 @@ var fetchItems = function fetchItems(_ref) {
   return function (next) {
     return function (action) {
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/items?page=2&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+        fetch("/items?page=1&minPrice=".concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=ASC_PRICE")).then(function (res) {
           return res.json();
         }).then(function (card) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card));
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
-        fetch("/items?page=3&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+        fetch("/items?page=1&minPrice=0&maxPrice=99999&sort=".concat(action.payload.sort)).then(function (res) {
           return res.json();
         }).then(function (card) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card));
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+        });
+      }
+
+      if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE) {
+        fetch("/items?page=".concat(action.payload.page, "&minPrice=", 0, "&maxPrice=99999&sort=ASC_PRICE")).then(function (res) {
+          return res.json();
+        }).then(function (card) {
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
         });
       }
 

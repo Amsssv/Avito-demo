@@ -10,7 +10,7 @@ const filterByPrice = (minPrice, maxPrice) => items.filter(({price}) => price >=
 const filterByPage = (items, pageNumber) => items.slice(((pageNumber * 3) - 3), (pageNumber * 3));
 const getSortFunction = (value) => {
     switch (value) {
-        case "asc_price":return (a, b) => {
+        case "ASC_PRICE":return (a, b) => {
             if (a.price < b.price) {
                 return -1;
             }
@@ -19,7 +19,7 @@ const getSortFunction = (value) => {
             }
             return 0;
         };
-        case "desc_price": return  (a, b) => {
+        case "DESC_PRICE": return  (a, b) => {
             if (b.price < a.price) {
                 return -1;
             }
