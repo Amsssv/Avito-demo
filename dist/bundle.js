@@ -26671,9 +26671,8 @@ function App() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchFirstItems": function() { return /* binding */ fetchFirstItems; },
-/* harmony export */   "fetchsomething": function() { return /* binding */ fetchsomething; },
 /* harmony export */   "filterPrice": function() { return /* binding */ filterPrice; },
+/* harmony export */   "getItems": function() { return /* binding */ getItems; },
 /* harmony export */   "paginate": function() { return /* binding */ paginate; },
 /* harmony export */   "sort": function() { return /* binding */ sort; }
 /* harmony export */ });
@@ -26708,19 +26707,10 @@ var paginate = function paginate() {
     }
   };
 };
-var fetchFirstItems = function fetchFirstItems() {
+var getItems = function getItems() {
   var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   return {
-    type: FETCH_ITEMS,
-    payload: {
-      items: items
-    }
-  };
-};
-var fetchsomething = function fetchsomething() {
-  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__.FETCH,
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS,
     payload: {
       items: items
     }
@@ -26739,8 +26729,8 @@ var fetchsomething = function fetchsomething() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FAVORITE": function() { return /* binding */ FAVORITE; },
-/* harmony export */   "FETCH": function() { return /* binding */ FETCH; },
 /* harmony export */   "FILTER_PRICE": function() { return /* binding */ FILTER_PRICE; },
+/* harmony export */   "GETITEMS": function() { return /* binding */ GETITEMS; },
 /* harmony export */   "PAGINATE": function() { return /* binding */ PAGINATE; },
 /* harmony export */   "SORT": function() { return /* binding */ SORT; }
 /* harmony export */ });
@@ -26748,7 +26738,7 @@ var FILTER_PRICE = "FILTER_PRICE";
 var SORT = "SORT";
 var PAGINATE = "PAGINATE";
 var FAVORITE = "FAVORITE";
-var FETCH = "FETCH";
+var GETITEMS = "GETITEMS";
 
 /***/ }),
 
@@ -27094,33 +27084,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
 function PostPagination() {
-  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)();
-
-  var items = _toConsumableArray(state.items);
-
   var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var pageNumber = function pageNumber(event) {
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(event.target.innerText));
   };
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      pages = _useState2[0],
+      setPages = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetch("/items?page=1&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getItems)(data.items));
+      setPages(data.pages);
+    });
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     spacing: 2,
     sx: {
@@ -27128,7 +27127,7 @@ function PostPagination() {
       padding: 3
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    count: Math.ceil(items.length / 3),
+    count: pages,
     size: "large",
     onClick: pageNumber
   })));
@@ -27394,23 +27393,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Authorization; }
 /* harmony export */ });
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../redux */ "./src/redux.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./src/actions/index.js");
-
-
 
 
 function Authorization() {
-  var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    variant: "contained",
-    onClick: function onClick() {
-      return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.fetchsomething)());
-    }
-  }, "Log In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    variant: "contained"
+  }, "Log In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], {
     variant: "contained"
   }, "Sign In"));
 }
@@ -27733,27 +27724,19 @@ var fetchItems = function fetchItems(_ref) {
   var dispatch = _ref.dispatch;
   return function (next) {
     return function (action) {
-      if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FETCH) {
-        fetch('/items?page=2&minPrice=0&maxPrice=99999&sort=asc_price').then(function (responce) {
-          return responce.json();
-        }).then(function (json) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.fetchsomething)(json));
-        });
-      }
-
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/items", {
-          method: "GET"
-        }).then(function (data) {
-          dispatch();
+        fetch("/items?page=2&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+          return res.json();
+        }).then(function (card) {
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
-        fetch("/items", {
-          method: "GET"
-        }).then(function (data) {
-          dispatch();
+        fetch("/items?page=3&minPrice=0&maxPrice=99999&sort=asc_price").then(function (res) {
+          return res.json();
+        }).then(function (card) {
+          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card));
         });
       }
 
@@ -27814,7 +27797,7 @@ var reducers = function reducers() {
         page: action.payload.page
       });
 
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FETCH:
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS:
       return _objectSpread(_objectSpread({}, state), {}, {
         items: action.payload.items
       });

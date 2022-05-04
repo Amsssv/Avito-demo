@@ -1,4 +1,4 @@
-import {FILTER_PRICE, SORT, PAGINATE, FETCH} from "./types"
+import {FILTER_PRICE, SORT, PAGINATE, FETCH, GETITEMS} from "./types"
 
 export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {
@@ -21,16 +21,9 @@ export const paginate = (page = null) => {
     }
 }
 
-export const fetchFirstItems = (items = []) => {
+export const getItems = (items = []) => {
     return {
-        type: FETCH_ITEMS,
-        payload: {items}
-    }
-}
-
-export const fetchsomething = (items = []) => {
-    return {
-        type: FETCH,
+        type: GETITEMS,
         payload: {items}
     }
 }

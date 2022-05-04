@@ -1,4 +1,4 @@
-import {FETCH, FILTER_PRICE, PAGINATE, SORT} from "../actions/types";
+import {FILTER_PRICE, GETITEMS, PAGINATE, SORT} from "../actions/types";
 import {sort} from "../constants";
 
 export const initialState = {
@@ -27,7 +27,7 @@ const reducers = (state = initialState, action) => {
                 ...state,
                 page: action.payload.page
             };
-        case FETCH:
+        case GETITEMS:
             return {
                 ...state,
                 items: action.payload.items
