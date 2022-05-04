@@ -27723,31 +27723,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
 
 
-var fetchItems = function fetchItems(_ref) {
-  var dispatch = _ref.dispatch;
+var fetchItems = function fetchItems(store) {
   return function (next) {
     return function (action) {
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/items?page=1&minPrice=".concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=ASC_PRICE")).then(function (res) {
+        fetch("/items?page=".concat(store.state.page, "&minPrice=").concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=").concat(store.state.sort)).then(function (res) {
           return res.json();
         }).then(function (card) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
-        fetch("/items?page=1&minPrice=0&maxPrice=99999&sort=".concat(action.payload.sort)).then(function (res) {
+        fetch("/items?page=".concat(store.state.page, "&minPrice=").concat(store.state.minPrice, "&maxPrice=").concat(store.state.maxPrice, "&sort=").concat(action.payload.sort)).then(function (res) {
           return res.json();
         }).then(function (card) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE) {
-        fetch("/items?page=".concat(action.payload.page, "&minPrice=", 0, "&maxPrice=99999&sort=ASC_PRICE")).then(function (res) {
+        fetch("/items?page=".concat(action.payload.page, "&minPrice=").concat(store.state.minPrice, "&maxPrice=").concat(store.state.maxPrice, "&sort=").concat(store.state.sort)).then(function (res) {
           return res.json();
         }).then(function (card) {
-          return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
         });
       }
 
