@@ -26673,6 +26673,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "filterPrice": function() { return /* binding */ filterPrice; },
 /* harmony export */   "getItems": function() { return /* binding */ getItems; },
+/* harmony export */   "getTotalPages": function() { return /* binding */ getTotalPages; },
 /* harmony export */   "paginate": function() { return /* binding */ paginate; },
 /* harmony export */   "sort": function() { return /* binding */ sort; }
 /* harmony export */ });
@@ -26708,11 +26709,20 @@ var paginate = function paginate() {
   };
 };
 var getItems = function getItems() {
-  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS,
     payload: {
       items: items
+    }
+  };
+};
+var getTotalPages = function getTotalPages() {
+  var pages = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.GETTOTALPAGES,
+    payload: {
+      pages: pages
     }
   };
 };
@@ -26731,6 +26741,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FAVORITE": function() { return /* binding */ FAVORITE; },
 /* harmony export */   "FILTER_PRICE": function() { return /* binding */ FILTER_PRICE; },
 /* harmony export */   "GETITEMS": function() { return /* binding */ GETITEMS; },
+/* harmony export */   "GETTOTALPAGES": function() { return /* binding */ GETTOTALPAGES; },
 /* harmony export */   "PAGINATE": function() { return /* binding */ PAGINATE; },
 /* harmony export */   "SORT": function() { return /* binding */ SORT; }
 /* harmony export */ });
@@ -26739,6 +26750,7 @@ var SORT = "SORT";
 var PAGINATE = "PAGINATE";
 var FAVORITE = "FAVORITE";
 var GETITEMS = "GETITEMS";
+var GETTOTALPAGES = "GETTOTALPAGES";
 
 /***/ }),
 
@@ -27080,57 +27092,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../redux */ "./src/redux.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../reducers */ "./src/reducers/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
 
 function PostPagination() {
+  var state = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)();
   var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var state = _reducers__WEBPACK_IMPORTED_MODULE_3__.initialState;
 
   var pageNumber = function pageNumber(event) {
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(event.target.innerText));
   };
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-      _useState2 = _slicedToArray(_useState, 2),
-      pages = _useState2[0],
-      setPages = _useState2[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetch("/items?page=".concat(state.page, "&minPrice=").concat(state.minPrice, "&maxPrice=").concat(state.maxPrice, "&sort=").concat(state.sort)).then(function (res) {
-      return res.json();
-    }).then(function (data) {
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.getItems)(data.items));
-      setPages(data.pages);
-    });
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     spacing: 2,
     sx: {
       alignItems: 'center',
       padding: 3
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    count: pages,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    count: state.pages,
     size: "large",
     onClick: pageNumber
   })));
@@ -27267,14 +27252,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _leftBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./leftBar */ "./src/components/body/leftBar.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
 /* harmony import */ var _list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./list */ "./src/components/body/list.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions */ "./src/actions/index.js");
+/* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux */ "./src/redux.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers */ "./src/reducers/index.js");
+
+
+
+
 
 
 
 
 function Body() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  var dispatch = (0,_redux__WEBPACK_IMPORTED_MODULE_4__.useDispatch)();
+  var state = _reducers__WEBPACK_IMPORTED_MODULE_5__.initialState;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetch("/items?page=".concat(state.page, "&minPrice=").concat(state.minPrice, "&maxPrice=").concat(state.maxPrice, "&sort=").concat(state.sort)).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.getItems)(data.items));
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.getTotalPages)(data.pages));
+    });
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
     sx: {
       display: "flex",
       boxSizing: 'border-box'
@@ -27721,32 +27723,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./src/actions/types.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers */ "./src/reducers/index.js");
+
 
 
 var fetchItems = function fetchItems(store) {
   return function (next) {
     return function (action) {
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/items?page=".concat(store.state.page, "&minPrice=").concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=").concat(store.state.sort)).then(function (res) {
+        fetch("/items?page=".concat(_reducers__WEBPACK_IMPORTED_MODULE_2__.initialState.page, "&minPrice=").concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=").concat(store.state.sort)).then(function (res) {
           return res.json();
-        }).then(function (card) {
-          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+        }).then(function (items) {
+          store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
+          store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getTotalPages)(items.pages));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
         fetch("/items?page=".concat(store.state.page, "&minPrice=").concat(store.state.minPrice, "&maxPrice=").concat(store.state.maxPrice, "&sort=").concat(action.payload.sort)).then(function (res) {
           return res.json();
-        }).then(function (card) {
-          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+        }).then(function (items) {
+          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE) {
         fetch("/items?page=".concat(action.payload.page, "&minPrice=").concat(store.state.minPrice, "&maxPrice=").concat(store.state.maxPrice, "&sort=").concat(store.state.sort)).then(function (res) {
           return res.json();
-        }).then(function (card) {
-          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(card.items));
+        }).then(function (items) {
+          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
         });
       }
 
@@ -27783,7 +27788,8 @@ var initialState = {
   sort: _constants__WEBPACK_IMPORTED_MODULE_1__.sort.ASC_PRICE,
   minPrice: 0,
   maxPrice: 999999,
-  page: 1
+  page: 1,
+  pages: 0
 };
 
 var reducers = function reducers() {
@@ -27810,6 +27816,11 @@ var reducers = function reducers() {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS:
       return _objectSpread(_objectSpread({}, state), {}, {
         items: action.payload.items
+      });
+
+    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.GETTOTALPAGES:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        pages: action.payload.pages
       });
 
     default:

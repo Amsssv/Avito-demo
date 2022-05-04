@@ -34,7 +34,10 @@ const sortBy = (items, sortValue) => items.sort(getSortFunction(sortValue));
 const filterItems = (items, pageNumber , minPrice, maxPrice, sort) => filterByPage(sortBy(filterByPrice(minPrice, maxPrice), sort), pageNumber)
 
 app.get('/items', (req, res) => {
-    return res.send({items: filterItems(items, req.query.page, req.query.minPrice, req.query.maxPrice, req.query.sort), pages: Math.ceil(items.length/3) })
+    return res.send({
+        items: filterItems(items, req.query.page, req.query.minPrice, req.query.maxPrice, req.query.sort),
+        pages: Math.ceil(filterByPrice(req.query.minPrice, req.query.maxPrice).length/3)
+    })
 })
 
 app.listen(3000, () => console.log(`Example app listening on port http://localhost:3000`));

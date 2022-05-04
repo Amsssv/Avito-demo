@@ -1,4 +1,4 @@
-import {FILTER_PRICE, GETITEMS, PAGINATE, SORT} from "../actions/types";
+import {FILTER_PRICE, GETITEMS, GETTOTALPAGES, PAGINATE, SORT} from "../actions/types";
 import {sort} from "../constants";
 
 export const initialState = {
@@ -7,6 +7,7 @@ export const initialState = {
     minPrice: 0,
     maxPrice: 999999,
     page: 1,
+    pages: 0,
 }
 
 const reducers = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const reducers = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload.items
+            }
+        case GETTOTALPAGES:
+            return {
+                ...state,
+                pages: action.payload.pages
             }
         default:
             return state;
