@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Container, Stack, Box, Toolbar } from "@mui/material";
+import {AppBar, Container, Stack, Box, Toolbar} from "@mui/material";
 import Authorization from "./authorization";
 import Tittle from "./title";
 import Favorite from "./favorite";
@@ -13,22 +13,22 @@ export default function () {
             boxShadow: "none",
             background: "#292929"
         }}>
-            <Container >
-                <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
+            <Container>
+                <Toolbar variant="dense" sx={{justifyContent: "space-between"}}>
                     <Box sx={{
                         mr: 2,
-                        display: { xs: "none", md: "flex" }
+                        display: {xs: "none", md: "flex"}
                     }}>
-                        <Tittle />
-                        <Navigation />
+                        <Tittle/>
+                        <Navigation/>
                     </Box>
-                    <MobileNavigation />
+                    <MobileNavigation/>
                     <Stack spacing={2} direction="row">
-                        <Favorite />
-                        <Authorization />
+                        <Favorite/>
+                        <Authorization/>
                     </Stack>
                 </Toolbar>
             </Container>
-        </AppBar >
+        </AppBar>
     )
 }

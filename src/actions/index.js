@@ -1,13 +1,13 @@
-import {FILTER_PRICE, SORT, PAGINATE, GETITEMS, GETTOTALPAGES} from "./types"
+import {FILTER_PRICE, SORT, PAGINATE, GETITEMS, INIT} from "./types"
 
 export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {
         type: FILTER_PRICE,
-        payload:{minPrice, maxPrice},
+        payload: {minPrice, maxPrice},
     }
 }
 
-export const sort = (sort = null) => {
+export const sort = (sort = null ) => {
     return {
         type: SORT,
         payload: {sort},
@@ -21,17 +21,16 @@ export const paginate = (page = null) => {
     }
 }
 
-export const getItems = (items = null) => {
+export const getItems = (items = null, pages = null, page = null) => {
     return {
         type: GETITEMS,
-        payload: {items}
+        payload: {items, pages, page}
     }
 }
 
-export const getTotalPages = (pages = null) => {
+export const init = () => {
     return {
-        type: GETTOTALPAGES,
-        payload: {pages}
+        type: INIT,
     }
 }
 

@@ -1,25 +1,39 @@
-import {FILTER_PRICE, PAGINATE, SORT} from "../actions/types";
-import {getItems, getTotalPages} from "../actions";
-import {initialState} from "../reducers";
+import {FILTER_PRICE, INIT, PAGINATE, SORT} from "../actions/types";
+import {getItems} from "../actions";
+
+const request = (page, minPrice, maxPrice, sort) => {
+    return new Promise((resolve, reject) => {
+        const url = new URL("http://localhost:3000/items");
+        url.searchParams.append("page", page);
+        url.searchParams.append("minPrice", minPrice);
+        url.searchParams.append("maxPrice", maxPrice);
+        url.searchParams.append("sort", sort);
+        fetch(url)
+            .then(res => resolve(res.json()))
+    })
+}
 
 export const fetchItems = store => next => action => {
+
+    const {page, minPrice, maxPrice, sort} = store.getState();
+
+    const dispatchItems = (data) => store.dispatch(getItems(data.items, data.pages, data.page));
+
+    if (action.type === INIT) {
+        request(page, minPrice, maxPrice, sort)
+            .then(data => dispatchItems(data))
+    }
     if (action.type === FILTER_PRICE) {
-        fetch(`/items?page=${initialState.page}&minPrice=${action.payload.minPrice}&maxPrice=${action.payload.maxPrice}&sort=${store.getState().sort}`)
-            .then(res => res.json())
-            .then(items => {
-                store.dispatch(getItems(items.items));
-                store.dispatch(getTotalPages(items.pages))
-            })
+        request(1, action.payload.minPrice, action.payload.maxPrice, sort)
+            .then(data => dispatchItems(data));
     }
     if (action.type === SORT) {
-        fetch(`/items?page=${initialState.page}&minPrice=${store.getState().minPrice}&maxPrice=${store.getState().maxPrice}&sort=${action.payload.sort}`)
-            .then(res => res.json())
-            .then(items => store.dispatch(getItems(items.items)))
+        request(1, minPrice, maxPrice, action.payload.sort)
+            .then(data => dispatchItems(data));
     }
     if (action.type === PAGINATE) {
-        fetch(`/items?page=${action.payload.page}&minPrice=${store.getState().minPrice}&maxPrice=${store.getState().maxPrice}&sort=${store.getState().sort}`)
-            .then(res => res.json())
-            .then(items => store.dispatch(getItems(items.items)))
+        request(action.payload.page, minPrice, maxPrice, sort)
+            .then(data => dispatchItems(data))
     }
 
     return next(action);

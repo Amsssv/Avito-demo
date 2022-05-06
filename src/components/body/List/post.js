@@ -9,7 +9,6 @@ import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
 
 
-
 export default function Post(props) {
     const {image, title, price, isFavorite, description} = props
 
@@ -35,7 +34,7 @@ export default function Post(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite} />
+                        <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite}/>
                         <IconButton aria-label="share">
                             <ShareIcon/>
                         </IconButton>

@@ -3,4 +3,5 @@ export const SORT = "SORT";
 export const PAGINATE = "PAGINATE";
 export const FAVORITE = "FAVORITE";
 export const GETITEMS = "GETITEMS";
-export const GETTOTALPAGES = "GETTOTALPAGES";
+export const INIT = "INIT";
+

@@ -34,9 +34,13 @@ const sortBy = (items, sortValue) => items.sort(getSortFunction(sortValue));
 const filterItems = (items, pageNumber , minPrice, maxPrice, sort) => filterByPage(sortBy(filterByPrice(minPrice, maxPrice), sort), pageNumber)
 
 app.get('/items', (req, res) => {
+
+    const {page, minPrice, maxPrice, sort} = req.query;
+
     return res.send({
-        items: filterItems(items, req.query.page, req.query.minPrice, req.query.maxPrice, req.query.sort),
-        pages: Math.ceil(filterByPrice(req.query.minPrice, req.query.maxPrice).length/3)
+        items: filterItems(items, page, minPrice, maxPrice, sort),
+        pages: Math.ceil(filterByPrice(minPrice, maxPrice).length/3),
+        page: page
     })
 })
 

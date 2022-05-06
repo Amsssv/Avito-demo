@@ -17,7 +17,7 @@ export default function PostFilter() {
 	const [select, setSelect] = React.useState(sort);
 
 	const handleChange = (event) => {
-		dispatch(sortd(event.target.value))
+		dispatch(sortd(event.target.value));
 		setSelect(event.target.value);
 	};
 

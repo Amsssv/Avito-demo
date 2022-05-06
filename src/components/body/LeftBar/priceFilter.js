@@ -15,7 +15,7 @@ export default function PriceFilter() {
 
     const handleMinChange = ({target: {value}}) => isValid(value) && setMinPrice(value);
     const handleMaxChange = ({target: {value}}) => isValid(value) && setMaxPrice(value);
-    const handleButtonClick = () => dispatch(filterPrice(parseInt(minPrice), parseInt(maxPrice)));
+    const handleButtonClick = () => dispatch(filterPrice(parseInt(minPrice), parseInt(maxPrice), 1));
 
     return (
         <>

@@ -26675,7 +26675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "filterPrice": function() { return /* binding */ filterPrice; },
 /* harmony export */   "getItems": function() { return /* binding */ getItems; },
-/* harmony export */   "getTotalPages": function() { return /* binding */ getTotalPages; },
+/* harmony export */   "init": function() { return /* binding */ init; },
 /* harmony export */   "paginate": function() { return /* binding */ paginate; },
 /* harmony export */   "sort": function() { return /* binding */ sort; }
 /* harmony export */ });
@@ -26712,20 +26712,20 @@ var paginate = function paginate() {
 };
 var getItems = function getItems() {
   var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var pages = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS,
     payload: {
-      items: items
+      items: items,
+      pages: pages,
+      page: page
     }
   };
 };
-var getTotalPages = function getTotalPages() {
-  var pages = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+var init = function init() {
   return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__.GETTOTALPAGES,
-    payload: {
-      pages: pages
-    }
+    type: _types__WEBPACK_IMPORTED_MODULE_0__.INIT
   };
 };
 
@@ -26743,7 +26743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FAVORITE": function() { return /* binding */ FAVORITE; },
 /* harmony export */   "FILTER_PRICE": function() { return /* binding */ FILTER_PRICE; },
 /* harmony export */   "GETITEMS": function() { return /* binding */ GETITEMS; },
-/* harmony export */   "GETTOTALPAGES": function() { return /* binding */ GETTOTALPAGES; },
+/* harmony export */   "INIT": function() { return /* binding */ INIT; },
 /* harmony export */   "PAGINATE": function() { return /* binding */ PAGINATE; },
 /* harmony export */   "SORT": function() { return /* binding */ SORT; }
 /* harmony export */ });
@@ -26752,7 +26752,7 @@ var SORT = "SORT";
 var PAGINATE = "PAGINATE";
 var FAVORITE = "FAVORITE";
 var GETITEMS = "GETITEMS";
-var GETTOTALPAGES = "GETTOTALPAGES";
+var INIT = "INIT";
 
 /***/ }),
 
@@ -26879,7 +26879,7 @@ function PriceFilter() {
   };
 
   var handleButtonClick = function handleButtonClick() {
-    return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.filterPrice)(parseInt(minPrice), parseInt(maxPrice)));
+    return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.filterPrice)(parseInt(minPrice), parseInt(maxPrice), 1));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -27113,10 +27113,13 @@ function PostPagination() {
   var pages = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return state.pages;
   });
+  var page = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return Number(state.page);
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var pageNumber = function pageNumber(event) {
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(event.target.innerText));
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.paginate)(Number(event.target.innerText)));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -27127,6 +27130,7 @@ function PostPagination() {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     count: pages,
+    page: page,
     size: "large",
     onClick: pageNumber
   })));
@@ -27163,8 +27167,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 function Posts() {
   var cards = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.items;
-  }); // const cards = [...state.items];
-
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, cards.map(function (_ref) {
     var id = _ref.id,
         rest = _objectWithoutProperties(_ref, _excluded);
@@ -27217,7 +27220,7 @@ function ToggleAppearance() {
       setAlignment = _React$useState2[1];
 
   var handleChange = function handleChange(event, newAlignment) {
-    setAlignment(newAlignment);
+    return setAlignment(newAlignment);
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -27251,12 +27254,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _leftBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./leftBar */ "./src/components/body/leftBar.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Box/Box.js");
 /* harmony import */ var _list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./list */ "./src/components/body/list.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions */ "./src/actions/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../reducers */ "./src/reducers/index.js");
-
 
 
 
@@ -27266,16 +27267,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function Body() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useDispatch)();
-  var state = _reducers__WEBPACK_IMPORTED_MODULE_5__.initialState;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetch("/items?page=".concat(state.page, "&minPrice=").concat(state.minPrice, "&maxPrice=").concat(state.maxPrice, "&sort=").concat(state.sort)).then(function (res) {
-      return res.json();
-    }).then(function (data) {
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.getItems)(data.items));
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.getTotalPages)(data.pages));
-    });
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.init)());
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     sx: {
       display: "flex",
       boxSizing: 'border-box'
@@ -27718,35 +27713,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/types */ "./src/actions/types.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers */ "./src/reducers/index.js");
 
 
+
+var request = function request(page, minPrice, maxPrice, sort) {
+  return new Promise(function (resolve, reject) {
+    var url = new URL("http://localhost:3000/items");
+    url.searchParams.append("page", page);
+    url.searchParams.append("minPrice", minPrice);
+    url.searchParams.append("maxPrice", maxPrice);
+    url.searchParams.append("sort", sort);
+    fetch(url).then(function (res) {
+      return resolve(res.json());
+    });
+  });
+};
 
 var fetchItems = function fetchItems(store) {
   return function (next) {
     return function (action) {
+      var _store$getState = store.getState(),
+          page = _store$getState.page,
+          minPrice = _store$getState.minPrice,
+          maxPrice = _store$getState.maxPrice,
+          sort = _store$getState.sort;
+
+      var dispatchItems = function dispatchItems(data) {
+        return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(data.items, data.pages, data.page));
+      };
+
+      if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.INIT) {
+        request(page, minPrice, maxPrice, sort).then(function (data) {
+          return dispatchItems(data);
+        });
+      }
+
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE) {
-        fetch("/items?page=".concat(_reducers__WEBPACK_IMPORTED_MODULE_2__.initialState.page, "&minPrice=").concat(action.payload.minPrice, "&maxPrice=").concat(action.payload.maxPrice, "&sort=").concat(store.getState().sort)).then(function (res) {
-          return res.json();
-        }).then(function (items) {
-          store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
-          store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getTotalPages)(items.pages));
+        request(1, action.payload.minPrice, action.payload.maxPrice, sort).then(function (data) {
+          return dispatchItems(data);
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT) {
-        fetch("/items?page=".concat(_reducers__WEBPACK_IMPORTED_MODULE_2__.initialState.page, "&minPrice=").concat(store.getState().minPrice, "&maxPrice=").concat(store.getState().maxPrice, "&sort=").concat(action.payload.sort)).then(function (res) {
-          return res.json();
-        }).then(function (items) {
-          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
+        request(1, minPrice, maxPrice, action.payload.sort).then(function (data) {
+          return dispatchItems(data);
         });
       }
 
       if (action.type === _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE) {
-        fetch("/items?page=".concat(action.payload.page, "&minPrice=").concat(store.getState().minPrice, "&maxPrice=").concat(store.getState().maxPrice, "&sort=").concat(store.getState().sort)).then(function (res) {
-          return res.json();
-        }).then(function (items) {
-          return store.dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_1__.getItems)(items.items));
+        request(action.payload.page, minPrice, maxPrice, sort).then(function (data) {
+          return dispatchItems(data);
         });
       }
 
@@ -27784,7 +27800,34 @@ var initialState = {
   minPrice: 0,
   maxPrice: 999999,
   page: 1,
-  pages: 0
+  pages: 1
+};
+
+var filterPrice = function filterPrice(state, action) {
+  return _objectSpread(_objectSpread({}, state), {}, {
+    minPrice: action.payload.minPrice,
+    maxPrice: action.payload.maxPrice
+  });
+};
+
+var sortFunc = function sortFunc(state, action) {
+  return _objectSpread(_objectSpread({}, state), {}, {
+    sort: action.payload.sort
+  });
+};
+
+var paginate = function paginate(state, action) {
+  return _objectSpread(_objectSpread({}, state), {}, {
+    page: action.payload.page
+  });
+};
+
+var getItems = function getItems(state, action) {
+  return _objectSpread(_objectSpread({}, state), {}, {
+    items: action.payload.items,
+    pages: action.payload.pages,
+    page: action.payload.page
+  });
 };
 
 var reducers = function reducers() {
@@ -27793,30 +27836,16 @@ var reducers = function reducers() {
 
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.FILTER_PRICE:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        minPrice: action.payload.minPrice,
-        maxPrice: action.payload.maxPrice
-      });
+      return filterPrice(state, action);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.SORT:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        sort: action.payload.sort
-      });
+      return sortFunc(state, action);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.PAGINATE:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        page: action.payload.page
-      });
+      return paginate(state, action);
 
     case _actions_types__WEBPACK_IMPORTED_MODULE_0__.GETITEMS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        items: action.payload.items
-      });
-
-    case _actions_types__WEBPACK_IMPORTED_MODULE_0__.GETTOTALPAGES:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        pages: action.payload.pages
-      });
+      return getItems(state, action);
 
     default:
       return state;

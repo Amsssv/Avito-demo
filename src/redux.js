@@ -10,7 +10,7 @@ export const createStore = (reducers = defaultReducers, initialState = null, enh
     let state = initialState !== null ? initialState : reducers(undefined, {});
 
     const store = {
-        get state() {
+        getState() {
             return state;
         },
 

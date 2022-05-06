@@ -5,9 +5,11 @@ import {paginate} from "../../../actions";
 
 export default function PostPagination() {
 	const pages = useSelector((state) => state.pages)
+	const page = useSelector((state) => Number(state.page))
+
 	const dispatch = useDispatch();
 	const pageNumber = (event) => {
-		dispatch(paginate(event.target.innerText))
+		dispatch(paginate(Number(event.target.innerText)))
 	};
 
 	return (
@@ -16,7 +18,7 @@ export default function PostPagination() {
 				alignItems: 'center',
 				padding: 3
 			}}>
-				<Pagination count={pages} size="large" onClick={pageNumber}/>
+				<Pagination count={pages} page={page} size="large" onClick={pageNumber}/>
 			</Stack>
 		</>
 	)
