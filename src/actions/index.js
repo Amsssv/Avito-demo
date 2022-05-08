@@ -1,4 +1,4 @@
-import {FILTER_PRICE, SORT, PAGINATE, GETITEMS, INIT} from "./types"
+import {FILTER_PRICE, SORT, PAGINATE, GETITEMS} from "./types"
 
 export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {
@@ -28,9 +28,9 @@ export const getItems = (items = null, pages = null, page = null) => {
     }
 }
 
-export const init = () => {
-    return {
-        type: INIT,
-    }
-}
+// export const init = () => {
+//     return {
+//         type: INIT,
+//     }
+// }
 

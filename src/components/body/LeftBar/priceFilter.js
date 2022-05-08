@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {FormControl, InputLabel, OutlinedInput, InputAdornment, Button} from '@mui/material';
 import {filterPrice} from "../../../actions";
 import {useDispatch, useSelector} from "react-redux";
+import {FilterPrice} from "../../../middlewares";
 
 const regexp = new RegExp(/^[0-9\b]+$/);
 const isValid = value => regexp.test(value);
@@ -15,7 +16,7 @@ export default function PriceFilter() {
 
     const handleMinChange = ({target: {value}}) => isValid(value) && setMinPrice(value);
     const handleMaxChange = ({target: {value}}) => isValid(value) && setMaxPrice(value);
-    const handleButtonClick = () => dispatch(filterPrice(parseInt(minPrice), parseInt(maxPrice), 1));
+    const handleButtonClick = () => dispatch(FilterPrice(parseInt(minPrice), parseInt(maxPrice)));
 
     return (
         <>

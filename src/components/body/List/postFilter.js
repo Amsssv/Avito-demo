@@ -3,6 +3,7 @@ import { MenuItem, Select, FormControl } from '@mui/material';
 import { sort as sortBy } from "../../../constants";
 import { sort as sortd} from "../../../actions";
 import { useSelector, useDispatch } from "react-redux";
+import {Sort} from "../../../middlewares";
 
 const options = {
 	[sortBy.ASC_PRICE]: "by lowest price",
@@ -17,7 +18,7 @@ export default function PostFilter() {
 	const [select, setSelect] = React.useState(sort);
 
 	const handleChange = (event) => {
-		dispatch(sortd(event.target.value));
+		dispatch(Sort(event.target.value));
 		setSelect(event.target.value);
 	};
 
