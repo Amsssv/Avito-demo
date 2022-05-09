@@ -1,12 +1,22 @@
 const express = require("express");
-const items = require('./data.json');
+// const items = require('./data.json');
 const app = express();
+const  {Pool} = require('pg')
+
 
 app.set('view engine', 'html');
 app.set('views', './');
 app.use(express.static("dist"));
 
-const filterByPrice = (minPrice, maxPrice) => items.filter(({price}) => price >= minPrice && maxPrice >= price);
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'avito_cards',
+    password: '1234',
+    port: 3030,
+})
+
+const filterByPrice = (minPrice, maxPrice, items) => items.filter(({price}) => price >= minPrice && maxPrice >= price);
 const filterByPage = (items, pageNumber) => items.slice(((pageNumber * 3) - 3), (pageNumber * 3));
 const getSortFunction = (value) => {
     switch (value) {
@@ -31,17 +41,27 @@ const getSortFunction = (value) => {
     }
 };
 const sortBy = (items, sortValue) => items.sort(getSortFunction(sortValue));
-const filterItems = (items, pageNumber , minPrice, maxPrice, sort) => filterByPage(sortBy(filterByPrice(minPrice, maxPrice), sort), pageNumber)
+const filterItems = (items, pageNumber , minPrice, maxPrice, sort) => filterByPage(sortBy(filterByPrice(minPrice, maxPrice, items), sort), pageNumber)
+
+// app.get('/items', (req, res) => {
+//
+//     const {page, minPrice, maxPrice, sort} = req.query;
+//
+//     return res.send({
+//         items: filterItems(items, page, minPrice, maxPrice, sort),
+//         pages: Math.ceil(filterByPrice(minPrice, maxPrice).length/3),
+//         page: page
+//     })
+// })
 
 app.get('/items', (req, res) => {
-
     const {page, minPrice, maxPrice, sort} = req.query;
 
-    return res.send({
-        items: filterItems(items, page, minPrice, maxPrice, sort),
-        pages: Math.ceil(filterByPrice(minPrice, maxPrice).length/3),
+    return (pool.query('SELECT * FROM card', (error, result) => res.send({
+        items: filterItems(result.rows, page, minPrice, maxPrice, sort),
+        pages: Math.ceil(filterByPrice(minPrice, maxPrice, result.rows).length/3),
         page: page
-    })
+    })))
 })
 
 app.listen(3000, () => console.log(`Example app listening on port http://localhost:3000`));
