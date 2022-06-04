@@ -1,19 +1,18 @@
+function Promise (fn) {
+    this.state = 'pending',
 
-class MyPromise {
-    constructor(fn){
-        this.state = "pending"
         fn(
             (resolveValue) =>  {this.doRes(resolveValue)},
-            (rejectValue) =>  {this.doRej(rejectValue)});
-    }
+            (rejectValue) =>  {this.doRej(rejectValue)}
+        )
 
-    then(doResolve, doReject) {
+    this.then = function(doResolve, doReject) {
         this.doResolve = doResolve;
         this.doReject = doReject;
         return this;
     }
 
-    doRes(value) {
+    this.doRes = function(value) {
         if (this.state !== "rejected") {
             this.doResolve(value);
             this.state = "fulfilled";
@@ -21,7 +20,7 @@ class MyPromise {
         }
     }
 
-    doRej(value){
+    this.doRej= function(value){
         if (this.state !== "fulfilled") {
             this.doReject(value);
             this.state = "rejected";
@@ -29,28 +28,27 @@ class MyPromise {
         }
     }
 
-    catch(doReject) {
+    this.catch = function(doReject) {
         this.then(this.doResolve, doReject);
         return this;
     }
 
-    finally(doFinally) {
+    this.finally = function(doFinally) {
         this.doFinally = doFinally;
         return this;
     }
 }
 
-let promise = new MyPromise((resolve, reject)=> {
-    setTimeout(()=>{reject("error")}, 500);
+let promise1 = new Promise((resolve, reject)=> {
     setTimeout(() => {resolve("success")}, 500)
+    setTimeout(() => {reject("error")}, 500);
 })
 
 
-promise.then(
+promise1.then(
     (res) => console.log(res)
 ).catch(
     (error) => console.log(error)
 ).finally(
     () => console.log("finally")
 )
-

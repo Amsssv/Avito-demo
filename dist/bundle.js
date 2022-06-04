@@ -26724,11 +26724,7 @@ var getItems = function getItems() {
       page: page
     }
   };
-}; // export const init = () => {
-//     return {
-//         type: INIT,
-//     }
-// }
+};
 
 /***/ }),
 
@@ -26741,19 +26737,15 @@ var getItems = function getItems() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FAVORITE": function() { return /* binding */ FAVORITE; },
 /* harmony export */   "FILTER_PRICE": function() { return /* binding */ FILTER_PRICE; },
 /* harmony export */   "GETITEMS": function() { return /* binding */ GETITEMS; },
-/* harmony export */   "INIT": function() { return /* binding */ INIT; },
 /* harmony export */   "PAGINATE": function() { return /* binding */ PAGINATE; },
 /* harmony export */   "SORT": function() { return /* binding */ SORT; }
 /* harmony export */ });
 var FILTER_PRICE = "FILTER_PRICE";
 var SORT = "SORT";
 var PAGINATE = "PAGINATE";
-var FAVORITE = "FAVORITE";
 var GETITEMS = "GETITEMS";
-var INIT = "INIT";
 
 /***/ }),
 
@@ -26821,14 +26813,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputLabel/InputLabel.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/OutlinedInput/OutlinedInput.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputAdornment/InputAdornment.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputLabel/InputLabel.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/OutlinedInput/OutlinedInput.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputAdornment/InputAdornment.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -26845,7 +26836,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var regexp = new RegExp(/^[0-9\b]+$/);
 
 var isValid = function isValid(value) {
@@ -26853,20 +26843,15 @@ var isValid = function isValid(value) {
 };
 
 function PriceFilter() {
-  var minPrices = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return state.minPrice;
-  });
-  var maxPrices = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    return state.maxPrice;
-  });
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  // const {minPrices, maxPrices} = useSelector((state) => state);
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minPrices),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
       minPrice = _useState2[0],
       setMinPrice = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(maxPrices),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(9999999),
       _useState4 = _slicedToArray(_useState3, 2),
       maxPrice = _useState4[0],
       setMaxPrice = _useState4[1];
@@ -26882,42 +26867,42 @@ function PriceFilter() {
   };
 
   var handleButtonClick = function handleButtonClick() {
-    return dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_3__.FilterPrice)(parseInt(minPrice), parseInt(maxPrice)));
+    return dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.FilterPrice)(parseInt(minPrice), parseInt(maxPrice)));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     sx: {
       mb: 2,
       mr: 1.5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     htmlFor: "lowest-price"
-  }, "Lowest"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, "Lowest"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     id: "lowest-price",
     value: minPrice,
     onChange: handleMinChange,
-    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       position: "start"
     }, "$"),
     label: "Lowest",
     placeholder: "100"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     sx: {
       mb: 2,
       mr: 1.5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     htmlFor: "highest-price"
-  }, "Highest"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, "Highest"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     id: "highest-price",
     value: maxPrice,
     onChange: handleMaxChange,
-    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       position: "start"
     }, "$"),
     label: "Highest",
     placeholder: "1000"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
     variant: "contained",
     sx: {
       mr: 1.5
@@ -27018,13 +27003,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Select/Select.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/MenuItem/MenuItem.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Select/Select.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/MenuItem/MenuItem.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../constants */ "./src/constants/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
 var _options;
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -27046,13 +27030,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var options = (_options = {}, _defineProperty(_options, _constants__WEBPACK_IMPORTED_MODULE_1__.sort.ASC_PRICE, "by lowest price"), _defineProperty(_options, _constants__WEBPACK_IMPORTED_MODULE_1__.sort.DESC_PRICE, "by higher price"), _defineProperty(_options, _constants__WEBPACK_IMPORTED_MODULE_1__.sort.ASC_DATE, "newest"), _defineProperty(_options, _constants__WEBPACK_IMPORTED_MODULE_1__.sort.DESC_DATE, "oldest"), _options);
 function PostFilter() {
-  var sort = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
-    return state.sort;
-  });
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return state;
+  }),
+      sort = _useSelector.sort;
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(sort),
       _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -27060,7 +27045,7 @@ function PostFilter() {
       setSelect = _React$useState2[1];
 
   var handleChange = function handleChange(event) {
-    dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_4__.Sort)(event.target.value));
+    dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_3__.Sort)(event.target.value));
     setSelect(event.target.value);
   };
 
@@ -27074,17 +27059,17 @@ function PostFilter() {
       value: value
     };
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     sx: {
       margin: 1,
       minWidth: 200
     },
     size: "small"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     value: select,
     onChange: handleChange
   }, items.map(function (item, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
       key: index,
       value: item.value
     }, item.label);
@@ -27106,39 +27091,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions */ "./src/actions/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
-
+/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../middlewares */ "./src/middlewares/index.js");
 
 
 
 
 function PostPagination() {
-  var pages = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return state.pages;
-  });
-  var page = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return Number(state.page);
-  });
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    return state;
+  }),
+      pages = _useSelector.pages,
+      page = _useSelector.page;
+
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var pageNumber = function pageNumber(event) {
-    // dispatch(paginate(Number(event.target.innerText)))
-    dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_3__.Paginate)(Number(event.target.innerText)));
+    return dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.Paginate)(Number(event.target.innerText)));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     spacing: 2,
     sx: {
       alignItems: 'center',
       padding: 3
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
     count: pages,
-    page: page,
+    page: Number(page),
     size: "large",
     onClick: pageNumber
   })));
@@ -27691,8 +27673,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sort": function() { return /* binding */ sort; }
 /* harmony export */ });
 var sort = Object.freeze({
-  ASC_PRICE: "ASC_PRICE",
-  DESC_PRICE: "DESC_PRICE",
+  ASC_PRICE: "ASC",
+  DESC_PRICE: "DESC",
   ASC_DATE: "ASC_DATE",
   DESC_DATE: "DESC_DATE"
 });
@@ -27727,23 +27709,14 @@ var request = function request(page, minPrice, maxPrice, sort) {
       return resolve(res.json());
     });
   });
-}; // export const fetchItems = store => next => action => {
-//
-//     const {page, minPrice, maxPrice, sort} = store.getState();
-//
-//     const dispatchItems = (data) => store.dispatch(getItems(data.items, data.pages, data.page));
-//
-//     if (action.type === FILTER_PRICE) {
-//         request(1, action.payload.minPrice, action.payload.maxPrice, sort)
-//             .then(data => dispatchItems(data));
-//     }
-//     if (action.type === SORT) {
-//         request(1, minPrice, maxPrice, action.payload.sort)
-//             .then(data => dispatchItems(data));
-//     }
-//     return next(action);
-// }
+};
 
+var fetchItems = function fetchItems(data, dispatch) {
+  var items = data.items,
+      pages = data.pages,
+      page = data.page;
+  dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(items, pages, page));
+};
 
 function initItems(dispatch, getState) {
   var _getState = getState(),
@@ -27753,41 +27726,41 @@ function initItems(dispatch, getState) {
       sort = _getState.sort;
 
   request(page, minPrice, maxPrice, sort).then(function (data) {
-    return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(data.items, data.pages, data.page));
+    return fetchItems(data, dispatch);
   });
 }
 function Paginate(page) {
-  return function savePaginatePage(dispatch, getState) {
+  return function (dispatch, getState) {
     var _getState2 = getState(),
         minPrice = _getState2.minPrice,
         maxPrice = _getState2.maxPrice,
         sort = _getState2.sort;
 
     request(page, minPrice, maxPrice, sort).then(function (data) {
-      return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(data.items, data.pages, data.page));
+      return fetchItems(data, dispatch);
     });
   };
 }
 function Sort(sortValue) {
-  return function saveSelectedSort(dispatch, getState) {
+  return function (dispatch, getState) {
     var _getState3 = getState(),
         minPrice = _getState3.minPrice,
         maxPrice = _getState3.maxPrice;
 
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.sort)(sortValue));
     request(1, minPrice, maxPrice, sortValue).then(function (data) {
-      return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(data.items, data.pages, data.page));
+      return fetchItems(data, dispatch);
     });
   };
 }
 function FilterPrice(minPrice, maxPrice) {
-  return function saveMinMaxPrices(dispatch, getState) {
+  return function (dispatch, getState) {
     var _getState4 = getState(),
         sort = _getState4.sort;
 
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.filterPrice)(minPrice, maxPrice));
     request(1, minPrice, maxPrice, sort).then(function (data) {
-      return dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(data.items, data.pages, data.page));
+      return fetchItems(data, dispatch);
     });
   };
 }

@@ -1,18 +1,13 @@
 import React from "react";
 import { Pagination, Stack } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {paginate} from "../../../actions";
 import {Paginate} from "../../../middlewares";
 
 export default function PostPagination() {
-	const pages = useSelector((state) => state.pages)
-	const page = useSelector((state) => Number(state.page))
-
+	const {pages, page} = useSelector((state) => state);
 	const dispatch = useDispatch();
-	const pageNumber = (event) => {
-		// dispatch(paginate(Number(event.target.innerText)))
-		dispatch(Paginate(Number(event.target.innerText)))
-	};
+
+	const pageNumber = (event) => dispatch(Paginate(Number(event.target.innerText)));
 
 	return (
 		<>
@@ -20,7 +15,7 @@ export default function PostPagination() {
 				alignItems: 'center',
 				padding: 3
 			}}>
-				<Pagination count={pages} page={page} size="large" onClick={pageNumber}/>
+				<Pagination count={pages} page={Number(page)} size="large" onClick={pageNumber}/>
 			</Stack>
 		</>
 	)

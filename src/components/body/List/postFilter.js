@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
 import { sort as sortBy } from "../../../constants";
-import { sort as sortd} from "../../../actions";
 import { useSelector, useDispatch } from "react-redux";
 import {Sort} from "../../../middlewares";
 
@@ -13,7 +12,7 @@ const options = {
 }
 
 export default function PostFilter() {
-	const sort = useSelector((state) => state.sort);
+	const {sort} = useSelector((state) => state);
 	const dispatch = useDispatch();
 	const [select, setSelect] = React.useState(sort);
 

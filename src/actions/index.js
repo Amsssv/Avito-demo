@@ -27,10 +27,3 @@ export const getItems = (items = null, pages = null, page = null) => {
         payload: {items, pages, page}
     }
 }
-
-// export const init = () => {
-//     return {
-//         type: INIT,
-//     }
-// }
-

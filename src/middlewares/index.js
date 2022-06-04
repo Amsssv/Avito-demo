@@ -12,52 +12,39 @@ const request = (page, minPrice, maxPrice, sort) => {
     })
 }
 
-// export const fetchItems = store => next => action => {
-//
-//     const {page, minPrice, maxPrice, sort} = store.getState();
-//
-//     const dispatchItems = (data) => store.dispatch(getItems(data.items, data.pages, data.page));
-//
-//     if (action.type === FILTER_PRICE) {
-//         request(1, action.payload.minPrice, action.payload.maxPrice, sort)
-//             .then(data => dispatchItems(data));
-//     }
-//     if (action.type === SORT) {
-//         request(1, minPrice, maxPrice, action.payload.sort)
-//             .then(data => dispatchItems(data));
-//     }
-//     return next(action);
-// }
-
+const fetchItems = (data, dispatch) => {
+    const {items, pages, page} = data;
+    dispatch(getItems(items, pages, page))
+}
 
 export function initItems(dispatch, getState) {
     const {page, minPrice, maxPrice, sort} = getState();
     request(page, minPrice, maxPrice, sort)
-        .then(data => dispatch(getItems(data.items, data.pages, data.page)))
+        .then(data => fetchItems(data, dispatch))
 }
 
 export function Paginate(page) {
-    return function savePaginatePage(dispatch, getState) {
+    return ((dispatch, getState) => {
         const {minPrice, maxPrice, sort} = getState();
         request(page, minPrice, maxPrice, sort)
-            .then(data => dispatch(getItems(data.items, data.pages, data.page)))
-    }
+            .then(data => fetchItems(data, dispatch))
+    })
 }
 
 export function Sort(sortValue) {
-    return function saveSelectedSort(dispatch, getState) {
+    return ((dispatch, getState) => {
         const {minPrice, maxPrice} = getState();
         dispatch(sort(sortValue))
         request(1, minPrice, maxPrice, sortValue)
-            .then(data => dispatch(getItems(data.items, data.pages, data.page)))
-    }
+            .then(data => fetchItems(data, dispatch))
+    })
 }
 
-export function FilterPrice (minPrice, maxPrice) {
-    return function saveMinMaxPrices(dispatch, getState) {
-        const { sort} = getState();
+export function FilterPrice(minPrice, maxPrice) {
+    return ((dispatch, getState) => {
+        const {sort} = getState();
         dispatch(filterPrice(minPrice, maxPrice))
         request(1, minPrice, maxPrice, sort)
-            .then(data => dispatch(getItems(data.items, data.pages, data.page)))
-    }
+            .then(data => fetchItems(data, dispatch))
+    })
 }
