@@ -15,9 +15,6 @@ const pool = new Pool({
     port: 3030,
 })
 
- let a = pool.query(`SELECT * FROM card WHERE price BETWEEN ${0} AND ${9999}`, (err, results) =>  results.rowCount);
-
-
 app.get('/items', (req, res) => {
     const {page, minPrice, maxPrice, sort} = req.query;
     let cardsQuery = `SELECT * FROM card WHERE price BETWEEN ${minPrice} AND ${maxPrice} ORDER BY price ${sort} offset ${(page * 3) - 3} rows fetch next 3 rows only `;
