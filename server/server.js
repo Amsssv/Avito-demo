@@ -15,15 +15,23 @@ const pool = new Pool({
     port: 3030,
 })
 
+ let a = pool.query(`SELECT * FROM card WHERE price BETWEEN ${0} AND ${9999}`, (err, results) =>  results.rowCount);
+
+
 app.get('/items', (req, res) => {
     const {page, minPrice, maxPrice, sort} = req.query;
-    let query = `SELECT * FROM card WHERE price BETWEEN ${minPrice} AND ${maxPrice} ORDER BY price ${sort} `;
+    let cardsQuery = `SELECT * FROM card WHERE price BETWEEN ${minPrice} AND ${maxPrice} ORDER BY price ${sort} offset ${(page * 3) - 3} rows fetch next 3 rows only `;
+    let pagesQuery = `SELECT COUNT(*) FROM card WHERE price BETWEEN ${minPrice} AND ${maxPrice}`;
 
-    return (pool.query(query, (error, result) =>  res.send({
-            items: result.rows.slice((page * 3) - 3, (page * 3)),
-            pages: Math.ceil(result.rowCount / 3),
+    Promise.all([
+        pool.query(cardsQuery), pool.query(pagesQuery)
+    ]).then(function ([items, pages]) {
+        res.send({
+            items: items.rows,
+            pages: Math.ceil(pages.rows[0].count/3),
             page: page,
-        })))
+        })
+    })
 })
 
 app.listen(3000, () => console.log(`Example app listening on port http://localhost:3000`));
