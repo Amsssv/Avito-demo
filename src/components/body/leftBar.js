@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
-import {createTheme} from "@mui/material/node_modules/@mui/system";
+import {createTheme} from "@mui/system";
 import PriceFilter from './LeftBar/priceFilter';
 import ItemsFilter from './LeftBar/ItemsFilter';
 
