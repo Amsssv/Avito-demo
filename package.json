@@ -1,0 +1,10 @@
+{
+  "name": "Avito-demo",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "scripts": {
+    "install": "node nested-json.js",
+    "start": "(cd ./server && npm run server) && (cd ./src && npm run start)"
+  }
+}
