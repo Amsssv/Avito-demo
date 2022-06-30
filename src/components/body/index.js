@@ -1,22 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 import LeftBar from './leftBar';
-import {Box,} from '@mui/material';
+import {Box} from '@mui/material';
 import List from './list';
 
-export default function Body() {
+const Body = () => (
+    <Box sx={{
+        display: "flex",
+        boxSizing: 'border-box'
+    }}>
+        <LeftBar/>
+        <List/>
+    </Box>
+);
 
-    return (
-        <Box sx={{
-            display: "flex",
-            boxSizing: 'border-box'
-        }}>
-            <LeftBar/>
-            <List/>
-        </Box>
-    );
-
-}
-
+export default Body;
 
 
 

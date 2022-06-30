@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 
 
+
 const store = createStore(reducers, undefined, applyMiddleware(thunk));
 
 store.dispatch(initItems)

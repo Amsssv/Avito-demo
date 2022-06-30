@@ -9,6 +9,7 @@ import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
 
 
+let a = '../p'
 export default function Post(props) {
     const {image, title, price, isFavorite, description} = props
 
@@ -44,7 +45,6 @@ export default function Post(props) {
                 <Typography color="text.secondary">
                     {description}
                 </Typography>
-                {/*<Typography sx={{mt: 1}}>{(new Date().toISOString().slice(0, 10))}</Typography>*/}
             </CardContent>
         </Card>
     );

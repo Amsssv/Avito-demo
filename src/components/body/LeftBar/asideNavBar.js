@@ -15,7 +15,7 @@ import InfoIcon from '@mui/icons-material/Info';
 const menuBar = ['Inbox', 'Starred', 'Send email', 'Drafts', 'All mail', 'Trash', 'Spam']
 const iconMenuBar = [<AllInboxIcon />, <StarIcon />, <SendIcon />, <DraftsIcon />, <MailIcon />, <DeleteIcon />, <InfoIcon />]
 
-export default function ItemsFilter() {
+export default function AsideNavBar() {
 	return (
 		<>
 			<List>

@@ -6,11 +6,16 @@
     "pg": "^8.7.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
     "express": "^4.18.1",
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "server": "nodemon server.js",
-    "debugg-server": "node server.js"
+    "build": "rimraf dist && babel src --out-dir dist  --copy-files",
+    "start": "node dist/app.js",
+    "start:dev": "nodemon --exec babel-node server.js"
   }
 }

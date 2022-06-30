@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import {createTheme} from "@mui/system";
-import PriceFilter from './LeftBar/priceFilter';
-import ItemsFilter from './LeftBar/ItemsFilter';
+import PriceFilter from './priceFilter';
+import AsideNavBar from './asideNavBar';
 
 const customTheme = createTheme({
     drawer: {
@@ -26,7 +26,7 @@ export default function LeftBar() {
     const classes = customTheme;
     return (
         <Drawer variant="permanent" anchor="left" sx={classes.drawer}>
-            <ItemsFilter/>
+            <AsideNavBar/>
             <PriceFilter/>
         </Drawer>
     );
