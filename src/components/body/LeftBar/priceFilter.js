@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FormControl, InputLabel, OutlinedInput, InputAdornment, Button} from '@mui/material';
 import {useDispatch} from "react-redux";
-import {FilterPrice} from "../../../middlewares";
+import {FilterPrice} from "../../../thunks";
 
 const regexp = new RegExp(/^[0-9\b]+$/);
 const isValid = value => regexp.test(value);

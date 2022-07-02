@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
 import { sort as sortBy } from "../../../constants";
 import { useSelector, useDispatch } from "react-redux";
-import {Sort} from "../../../middlewares";
+import {Sort} from "../../../thunks";
 import {Box} from "@mui/system";
 
 const options = {

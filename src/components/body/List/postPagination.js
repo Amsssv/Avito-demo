@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination, Stack } from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {Paginate} from "../../../middlewares";
+import {Paginate} from "../../../thunks";
 
 export default function PostPagination() {
 	const {pages, page} = useSelector((state) => state);

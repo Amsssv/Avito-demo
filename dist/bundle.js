@@ -28500,7 +28500,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/header */ "./components/header/index.js");
 /* harmony import */ var _components_body__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/body */ "./components/body/index.js");
 /* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers */ "./reducers/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./middlewares */ "./middlewares/index.js");
+/* harmony import */ var _thunks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./thunks */ "./thunks/index.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
@@ -28514,7 +28514,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var store = (0,redux__WEBPACK_IMPORTED_MODULE_6__.createStore)(_reducers__WEBPACK_IMPORTED_MODULE_3__["default"], undefined, (0,redux__WEBPACK_IMPORTED_MODULE_6__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_7__["default"]));
-store.dispatch(_middlewares__WEBPACK_IMPORTED_MODULE_4__.initItems);
+store.dispatch(_thunks__WEBPACK_IMPORTED_MODULE_4__.initItems);
 function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_redux__WEBPACK_IMPORTED_MODULE_5__.Provider, {
     store: store
@@ -28767,7 +28767,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/InputAdornment/InputAdornment.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../middlewares */ "./middlewares/index.js");
+/* harmony import */ var _thunks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../thunks */ "./thunks/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -28814,7 +28814,7 @@ function PriceFilter() {
   };
 
   var handleButtonClick = function handleButtonClick() {
-    return dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.FilterPrice)(parseInt(minPrice), parseInt(maxPrice)));
+    return dispatch((0,_thunks__WEBPACK_IMPORTED_MODULE_2__.FilterPrice)(parseInt(minPrice), parseInt(maxPrice)));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -28974,7 +28974,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../middlewares */ "./middlewares/index.js");
+/* harmony import */ var _thunks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../thunks */ "./thunks/index.js");
 /* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/styles/styled.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -29004,6 +29004,10 @@ var regexp = new RegExp(/^[0-9\b]+$/);
 
 var isValid = function isValid(value) {
   return regexp.test(value);
+};
+
+var isEmpty = function isEmpty(str) {
+  return str === '';
 };
 
 var currency = "\u20BD";
@@ -29040,6 +29044,11 @@ function NewCardForm(props) {
       desc = _useState10[0],
       setDesc = _useState10[1];
 
+  var handleButtonClick = function handleButtonClick() {
+    dispatch((0,_thunks__WEBPACK_IMPORTED_MODULE_2__.addItem)(title, url, price, desc, data));
+    onClose();
+  };
+
   var handlePrice = function handlePrice(_ref) {
     var value = _ref.target.value;
     return isValid(value) && setPrice(value);
@@ -29055,91 +29064,74 @@ function NewCardForm(props) {
     return setDesc(value);
   };
 
-  var handleButtonClick = function handleButtonClick() {
-    dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.addItem)(title, url, price, desc));
-    onClose();
-    (0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.addImage)(data);
+  var showImage = function showImage() {
+    var image = document.getElementById('form__image');
+    image.width = 200;
+    image.height = 200;
+    return image;
   };
 
-  function submit() {
+  var getImageProps = function getImageProps(event) {
+    var file = event.target.files[0];
+    var url = event.target.baseURI;
+    var imageName = file.name.replaceAll(" ", "");
     var reader = new FileReader();
-    var file = document.getElementById('contained-button-file').files[0];
-    var image = document.getElementById('form__image');
-    var url = 'http://localhost:3000/items';
-    setUrl("".concat(url, "/").concat(file.name.replaceAll(" ", "")));
     reader.readAsDataURL(file);
 
     reader.onloadend = function () {
-      image.src = reader.result;
+      showImage().src = reader.result;
+      setUrl(url + "items/" + imageName);
+      setData({
+        img: reader.result,
+        name: imageName
+      });
     };
+  };
 
-    reader.onload = function (f) {
-      return function (e) {
-        setData({
-          img: e.target.result,
-          name: file.name
-        });
-      };
-    }(file);
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
     open: open,
     sx: {
       textAlign: 'center'
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     sx: {
       ml: 7
     },
     direction: "row",
     spacing: 30
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_DialogTitle__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_DialogTitle__WEBPACK_IMPORTED_MODULE_6__["default"], {
     id: "scroll-dialog-title"
-  }, "Add new card"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, "Add new card"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
     onClick: onClose
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_8__["default"], {
     fontSize: "large"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
     sx: {
-      m: 2
+      m: 2,
+      width: 450
     },
     required: true,
     id: "card-title",
     label: "Card name",
     value: title,
-    onChange: handleTitle
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-    htmlFor: "contained-button-file"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Input, {
-    accept: "image/*",
-    id: "contained-button-file",
-    multiple: true,
-    type: "file",
-    onChange: submit
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    variant: "contained",
-    component: "span"
-  }, "Upload")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    id: "form__image",
-    width: 400,
-    height: 400
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    onChange: handleTitle,
+    error: isEmpty(title)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_10__["default"], {
     sx: {
       m: 2,
       width: 450
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
     htmlFor: "outlined-adornment-amount"
-  }, "Amount"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, "Amount"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], {
     id: "outlined-adornment-amount",
     value: price,
     onChange: handlePrice,
-    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    startAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_13__["default"], {
       position: "start"
     }, currency),
     label: "Amount"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
     sx: {
       m: 2,
       width: 450
@@ -29149,15 +29141,38 @@ function NewCardForm(props) {
     rows: 4,
     label: "Description",
     value: desc,
-    onChange: handleDesc
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    onChange: handleDesc,
+    error: isEmpty(desc)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    sx: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "contained-button-file"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Input, {
+    accept: "image/*",
+    id: "contained-button-file",
+    multiple: true,
+    type: "file",
+    onChange: getImageProps
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    variant: "contained",
+    component: "span",
     sx: {
       m: 2
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, "Upload image")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    id: "form__image"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    sx: {
+      m: 2
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
     onClick: handleButtonClick,
     variant: "contained",
-    endIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_15__["default"], null)
+    endIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Send__WEBPACK_IMPORTED_MODULE_15__["default"], null)
   }, "Send"))));
 }
 
@@ -29257,7 +29272,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Stack/Stack.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Pagination/Pagination.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../middlewares */ "./middlewares/index.js");
+/* harmony import */ var _thunks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../thunks */ "./thunks/index.js");
 
 
 
@@ -29272,7 +29287,7 @@ function PostPagination() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var pageNumber = function pageNumber(event) {
-    return dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_2__.Paginate)(Number(event.target.innerText)));
+    return dispatch((0,_thunks__WEBPACK_IMPORTED_MODULE_2__.Paginate)(Number(event.target.innerText)));
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -29309,7 +29324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/MenuItem/MenuItem.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../constants */ "./constants/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../middlewares */ "./middlewares/index.js");
+/* harmony import */ var _thunks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../thunks */ "./thunks/index.js");
 /* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/Box/Box.js");
 var _options;
 
@@ -29348,7 +29363,7 @@ function PostSortBy() {
       setSelect = _React$useState2[1];
 
   var handleChange = function handleChange(event) {
-    dispatch((0,_middlewares__WEBPACK_IMPORTED_MODULE_3__.Sort)(event.target.value));
+    dispatch((0,_thunks__WEBPACK_IMPORTED_MODULE_3__.Sort)(event.target.value));
     setSelect(event.target.value);
   };
 
@@ -29862,161 +29877,6 @@ function useToggle() {
 
 /***/ }),
 
-/***/ "./middlewares/index.js":
-/*!******************************!*\
-  !*** ./middlewares/index.js ***!
-  \******************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FilterPrice": function() { return /* binding */ FilterPrice; },
-/* harmony export */   "Paginate": function() { return /* binding */ Paginate; },
-/* harmony export */   "Sort": function() { return /* binding */ Sort; },
-/* harmony export */   "addImage": function() { return /* binding */ addImage; },
-/* harmony export */   "addItem": function() { return /* binding */ addItem; },
-/* harmony export */   "initItems": function() { return /* binding */ initItems; }
-/* harmony export */ });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./actions/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
-var request = function request(page, minPrice, maxPrice, sort) {
-  return new Promise(function (resolve) {
-    var url = new URL("http://localhost:3000/items");
-    url.searchParams.append("page", page);
-    url.searchParams.append("minPrice", minPrice);
-    url.searchParams.append("maxPrice", maxPrice);
-    url.searchParams.append("sort", sort);
-    fetch(url).then(function (res) {
-      return resolve(res.json());
-    });
-  });
-};
-
-var fetchItems = function fetchItems(data, dispatch) {
-  var items = data.items,
-      pages = data.pages,
-      page = data.page;
-  var totalPages = Math.ceil(pages / 3);
-  dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(items, totalPages, page));
-};
-
-function initItems(dispatch, getState) {
-  var _getState = getState(),
-      page = _getState.page,
-      minPrice = _getState.minPrice,
-      maxPrice = _getState.maxPrice,
-      sort = _getState.sort;
-
-  request(page, minPrice, maxPrice, sort).then(function (data) {
-    return fetchItems(data, dispatch);
-  });
-}
-function Paginate(page) {
-  return function (dispatch, getState) {
-    var _getState2 = getState(),
-        minPrice = _getState2.minPrice,
-        maxPrice = _getState2.maxPrice,
-        sort = _getState2.sort;
-
-    request(page, minPrice, maxPrice, sort).then(function (data) {
-      return fetchItems(data, dispatch);
-    });
-  };
-}
-function Sort(sortValue) {
-  return function (dispatch, getState) {
-    var _getState3 = getState(),
-        minPrice = _getState3.minPrice,
-        maxPrice = _getState3.maxPrice;
-
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.sort)(sortValue));
-    request(1, minPrice, maxPrice, sortValue).then(function (data) {
-      return fetchItems(data, dispatch);
-    });
-  };
-}
-function FilterPrice(minPrice, maxPrice) {
-  return function (dispatch, getState) {
-    var _getState4 = getState(),
-        sort = _getState4.sort;
-
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.filterPrice)(minPrice, maxPrice));
-    request(1, minPrice, maxPrice, sort).then(function (data) {
-      return fetchItems(data, dispatch);
-    });
-  };
-}
-
-var response = function response(title, imageUrl, isFavorite, price, description) {
-  return new Promise(function (resolve) {
-    var url = new URL("http://localhost:3000/items");
-    url.searchParams.append("title", title);
-    url.searchParams.append("imageUrl", imageUrl);
-    url.searchParams.append("isFavorite", isFavorite);
-    url.searchParams.append("price", price);
-    url.searchParams.append("description", description);
-    fetch(url, {
-      method: "POST"
-    }).then(function (res) {
-      return resolve(res.json());
-    });
-  });
-};
-
-function addItem(title, imageUrl, price, description) {
-  return function (dispatch) {
-    response(title, imageUrl, false, price, description).then(function (data) {
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.addCard)(data.item));
-    });
-  };
-}
-function addImage(data) {
-  _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var url, response, result;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            url = 'http://localhost:3000/image';
-            console.log(data);
-            _context.next = 4;
-            return fetch(url, {
-              method: "POST",
-              body: JSON.stringify(data),
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-
-          case 4:
-            response = _context.sent;
-            _context.next = 7;
-            return response.json();
-
-          case 7:
-            result = _context.sent;
-
-          case 8:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }))();
-}
-
-/***/ }),
-
 /***/ "./reducers/index.js":
 /*!***************************!*\
   !*** ./reducers/index.js ***!
@@ -30097,6 +29957,163 @@ var reducers = function reducers() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (reducers);
+
+/***/ }),
+
+/***/ "./thunks/addItem.js":
+/*!***************************!*\
+  !*** ./thunks/addItem.js ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addItem": function() { return /* binding */ addItem; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./actions/index.js");
+
+
+var request = function request(title, imageUrl, isFavorite, price, description, data) {
+  return new Promise(function (resolve) {
+    var url = new URL("http://localhost:3000/items");
+    url.searchParams.append("title", title);
+    url.searchParams.append("imageUrl", imageUrl);
+    url.searchParams.append("isFavorite", isFavorite);
+    url.searchParams.append("price", price);
+    url.searchParams.append("description", description);
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function (res) {
+      return resolve(res.json());
+    }).catch(function (error) {
+      return console.error(error);
+    });
+  });
+};
+
+function addItem(title, imageUrl, price, description, data) {
+  return function (dispatch) {
+    request(title, imageUrl, false, price, description, data).then(function (data) {
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.addCard)(data.item));
+    });
+  };
+}
+
+/***/ }),
+
+/***/ "./thunks/getCards.js":
+/*!****************************!*\
+  !*** ./thunks/getCards.js ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FilterPrice": function() { return /* binding */ FilterPrice; },
+/* harmony export */   "Paginate": function() { return /* binding */ Paginate; },
+/* harmony export */   "Sort": function() { return /* binding */ Sort; },
+/* harmony export */   "initItems": function() { return /* binding */ initItems; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./actions/index.js");
+
+
+var request = function request(page, minPrice, maxPrice, sort) {
+  return new Promise(function (resolve) {
+    var url = new URL("http://localhost:3000/items");
+    url.searchParams.append("page", page);
+    url.searchParams.append("minPrice", minPrice);
+    url.searchParams.append("maxPrice", maxPrice);
+    url.searchParams.append("sort", sort);
+    fetch(url).then(function (res) {
+      return resolve(res.json());
+    }).catch(function (error) {
+      return console.error(error);
+    });
+  });
+};
+
+var fetchItems = function fetchItems(data, dispatch) {
+  var items = data.items,
+      pages = data.pages,
+      page = data.page;
+  var totalPages = Math.ceil(pages / 3);
+  dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.getItems)(items, totalPages, page));
+};
+
+function initItems(dispatch, getState) {
+  var _getState = getState(),
+      page = _getState.page,
+      minPrice = _getState.minPrice,
+      maxPrice = _getState.maxPrice,
+      sort = _getState.sort;
+
+  request(page, minPrice, maxPrice, sort).then(function (data) {
+    return fetchItems(data, dispatch);
+  });
+}
+function Paginate(page) {
+  return function (dispatch, getState) {
+    var _getState2 = getState(),
+        minPrice = _getState2.minPrice,
+        maxPrice = _getState2.maxPrice,
+        sort = _getState2.sort;
+
+    request(page, minPrice, maxPrice, sort).then(function (data) {
+      return fetchItems(data, dispatch);
+    });
+  };
+}
+function Sort(sortValue) {
+  return function (dispatch, getState) {
+    var _getState3 = getState(),
+        minPrice = _getState3.minPrice,
+        maxPrice = _getState3.maxPrice;
+
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.sort)(sortValue));
+    request(1, minPrice, maxPrice, sortValue).then(function (data) {
+      return fetchItems(data, dispatch);
+    });
+  };
+}
+function FilterPrice(minPrice, maxPrice) {
+  return function (dispatch, getState) {
+    var _getState4 = getState(),
+        sort = _getState4.sort;
+
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_0__.filterPrice)(minPrice, maxPrice));
+    request(1, minPrice, maxPrice, sort).then(function (data) {
+      return fetchItems(data, dispatch);
+    });
+  };
+}
+
+/***/ }),
+
+/***/ "./thunks/index.js":
+/*!*************************!*\
+  !*** ./thunks/index.js ***!
+  \*************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FilterPrice": function() { return /* reexport safe */ _getCards__WEBPACK_IMPORTED_MODULE_0__.FilterPrice; },
+/* harmony export */   "Paginate": function() { return /* reexport safe */ _getCards__WEBPACK_IMPORTED_MODULE_0__.Paginate; },
+/* harmony export */   "Sort": function() { return /* reexport safe */ _getCards__WEBPACK_IMPORTED_MODULE_0__.Sort; },
+/* harmony export */   "addItem": function() { return /* reexport safe */ _addItem__WEBPACK_IMPORTED_MODULE_1__.addItem; },
+/* harmony export */   "initItems": function() { return /* reexport safe */ _getCards__WEBPACK_IMPORTED_MODULE_0__.initItems; }
+/* harmony export */ });
+/* harmony import */ var _getCards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getCards */ "./thunks/getCards.js");
+/* harmony import */ var _addItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addItem */ "./thunks/addItem.js");
+
+
 
 /***/ }),
 

@@ -3,7 +3,7 @@ import { Container, CssBaseline } from '@mui/material';
 import Header from './components/header';
 import Body from './components/body';
 import reducers from "./reducers";
-import {initItems} from "./middlewares";
+import {initItems} from "./thunks";
 import {createStore, applyMiddleware} from 'redux'
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";

@@ -1,4 +1,5 @@
 import {ListModel} from '../models';
+import fs from "fs";
 
 class ListController {
     constructor() {
@@ -10,7 +11,7 @@ class ListController {
     async getItems(req, res) {
         try {
             const {page, minPrice, maxPrice, sort} = req.query;
-            const {items, pages} = await this.model.getItems({ minPrice, maxPrice, sort, page});
+            const {items, pages} = await this.model.getItems({minPrice, maxPrice, sort, page});
             res.send({
                 items: items.rows,
                 pages: pages.rows[0].count,
@@ -24,23 +25,16 @@ class ListController {
     async addItem(req, res) {
         try {
             const {title, imageUrl, isFavorite, price, description} = req.query;
+            const base64Data = req.body.img.replace(/^data:image\/jpeg+;base64,/, "");
+            let imageName = req.body.name;
 
-            res.send(
-                await this.model.addItem(title, imageUrl, isFavorite, price, description)
-            )
-        } catch (err){
+            fs.writeFile(`./images/${imageName}`, base64Data, 'base64', (err) => console.log(err));
+
+            res.send(await this.model.addItem(title, imageUrl, isFavorite, price, description))
+        } catch (err) {
             console.log(err)
         }
     }
-
-    // async addImage(req, res) {
-    //
-    //     console.log(req.body);
-    //     const base64Data = req.body.img.replace(/^data:image\/jpeg+;base64,/, "");
-    //
-    //     fs.writeFile(`./images/${req.body.name.replaceAll(" ", "")}`, base64Data, 'base64', (err) => console.log(err));
-    // }
-
 }
 
 export default ListController;
