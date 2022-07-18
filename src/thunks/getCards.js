@@ -1,12 +1,12 @@
-import {filterPrice, getItems, sort} from "../actions";
+import {filterPrice, getItems, paginate, sort} from '../actions';
 
 const request = (page, minPrice, maxPrice, sort) => {
     return new Promise((resolve) => {
-        const url = new URL("http://localhost:3000/items");
-        url.searchParams.append("page", page);
-        url.searchParams.append("minPrice", minPrice);
-        url.searchParams.append("maxPrice", maxPrice);
-        url.searchParams.append("sort", sort);
+        const url = new URL('http://localhost:3000/items');
+        url.searchParams.append('page', page);
+        url.searchParams.append('minPrice', minPrice);
+        url.searchParams.append('maxPrice', maxPrice);
+        url.searchParams.append('sort', sort);
         fetch(url)
             .then(res => resolve(res.json()))
             .catch(error => console.error(error))

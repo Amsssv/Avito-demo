@@ -4,10 +4,7 @@ import {Box} from '@mui/material';
 import List from './list';
 
 const Body = () => (
-    <Box sx={{
-        display: "flex",
-        boxSizing: 'border-box'
-    }}>
+    <Box sx={{display: "flex", boxSizing: 'border-box'}}>
         <LeftBar/>
         <List/>
     </Box>

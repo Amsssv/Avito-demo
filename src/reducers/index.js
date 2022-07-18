@@ -1,5 +1,5 @@
-import {FILTER_PRICE, GETITEMS, PAGINATE, SORT} from "../actions/types";
-import {sort} from "../constants";
+import {FILTER_PRICE, GETITEMS, PAGINATE, SORT} from '../actions/types';
+import {sort} from '../constants';
 
 export const initialState = {
     items: [],

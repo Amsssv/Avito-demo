@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { MenuItem, Select, FormControl } from '@mui/material';
-import { sort as sortBy } from "../../../constants";
-import { useSelector, useDispatch } from "react-redux";
-import {Sort} from "../../../thunks";
-import {Box} from "@mui/system";
+import { sort as sortBy } from '../../../constants';
+import { useSelector, useDispatch } from 'react-redux';
+import {Sort} from '../../../thunks';
+import {Box} from '@mui/system';
 
 const options = {
-	[sortBy.ASC_PRICE]: "by lowest price",
-	[sortBy.DESC_PRICE]: "by higher price",
-	[sortBy.ASC_DATE]: "newest",
-	[sortBy.DESC_DATE]: "oldest"
+	[sortBy.ASC_PRICE]: 'by lowest price',
+	[sortBy.DESC_PRICE]: 'by higher price',
+	[sortBy.ASC_DATE]: 'newest',
+	[sortBy.DESC_DATE]: 'oldest'
 }
 
 export default function PostSortBy() {
@@ -29,7 +29,7 @@ export default function PostSortBy() {
 			<FormControl sx={{
 				margin: 1,
 				minWidth: 200,
-			}} size="small">
+			}} size='small'>
 				<Select value={select} onChange={handleChange}>
 					{items.map((item, index) => (
 						<MenuItem key={index} value={item.value}>{item.label}</MenuItem>

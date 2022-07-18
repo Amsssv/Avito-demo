@@ -8,41 +8,37 @@ import ShareIcon from '@mui/icons-material/Share';
 import {Checkbox, Grid} from '@mui/material';
 import {Favorite, FavoriteBorder} from '@mui/icons-material';
 
-
-let a = '../p'
 export default function Post(props) {
     const {image, title, price, isFavorite, description} = props
 
     return (
-        <Card sx={{
-            display: 'flex',
-            mt: 2,
-        }}>
+        <Card sx={{display: 'flex', mt: 2}}>
             <CardMedia
                 sx={{width: 300}}
-                component="img"
+                component='img'
                 image={image}
+                height='194'
             />
             <CardContent>
                 <Grid
                     container
-                    justifyContent="space-between"
-                    alignItems="top"
+                    justifyContent='space-between'
+                    alignItems='top'
                 >
                     <Grid item xs={3}>
-                        <Typography gutterBottom variant="h5">
+                        <Typography gutterBottom variant='h5'>
                             {title}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite/>} value={isFavorite}/>
-                        <IconButton aria-label="share">
+                        <IconButton aria-label='share'>
                             <ShareIcon/>
                         </IconButton>
                     </Grid>
                 </Grid>
-                <Typography variant="h6" id='price'>{price}</Typography>
-                <Typography color="text.secondary">
+                <Typography variant='h6' id='price'>{price}</Typography>
+                <Typography color='text.secondary'>
                     {description}
                 </Typography>
             </CardContent>

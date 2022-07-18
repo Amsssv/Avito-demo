@@ -1,4 +1,4 @@
-export {FilterPrice, Paginate, initItems, Sort} from "./getCards";
-export {addItem} from "./addItem";
+export {FilterPrice, Paginate, initItems, Sort} from './getCards';
+export {addItem} from './addItem';
 
 

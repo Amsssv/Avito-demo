@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import WindowIcon from '@mui/icons-material/Window';
 import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import {ToggleButton, ToggleButtonGroup} from '@mui/material';
@@ -16,10 +16,10 @@ export default function ToggleAppearance() {
             exclusive
             onChange={handleChange}
             sx={{height: 40}}>
-            <ToggleButton value="line">
+            <ToggleButton value='line'>
                 <ViewHeadlineIcon/>
             </ToggleButton>
-            <ToggleButton value="grid">
+            <ToggleButton value='grid'>
                 <WindowIcon/>
             </ToggleButton>
         </ToggleButtonGroup>

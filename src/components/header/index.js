@@ -1,31 +1,22 @@
-import React from "react";
-import {AppBar, Container, Stack, Box, Toolbar} from "@mui/material";
-import Authorization from "./authorization";
-import Tittle from "./title";
-import Favorite from "./favorite";
-import Navigation from "./navigation";
-import MobileNavigation from "./mobileComponents/mobileNavigation";
+import React from 'react';
+import {AppBar, Container, Stack, Box, Toolbar} from '@mui/material';
+import AuthButtons from './authButtons';
+import Tittle from './homeLogo';
+import FavoriteItemsIcon from './favoriteItemsIcon';
+import HeaderNavigation from './headerNavigation';
 
-export default function () {
-
+export default function Header() {
     return (
-        <AppBar position="static" sx={{
-            boxShadow: "none",
-            background: "#292929"
-        }}>
-            <Container>
-                <Toolbar variant="dense" sx={{justifyContent: "space-between"}}>
-                    <Box sx={{
-                        mr: 2,
-                        display: {xs: "none", md: "flex"}
-                    }}>
+        <AppBar position='static' sx={{boxShadow: 'none', background: '#292929'}}>
+            <Container maxWidth="lg">
+                <Toolbar disableGutters>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         <Tittle/>
-                        <Navigation/>
+                        <HeaderNavigation/>
                     </Box>
-                    <MobileNavigation/>
-                    <Stack spacing={2} direction="row">
-                        <Favorite/>
-                        <Authorization/>
+                    <Stack spacing={2} direction='row'>
+                        <FavoriteItemsIcon/>
+                        <AuthButtons/>
                     </Stack>
                 </Toolbar>
             </Container>

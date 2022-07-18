@@ -1,8 +1,8 @@
-import { Box, Menu } from "@mui/material";
-import React from "react";
-import Navigation from "../navigation";
-import Tittle from "../title";
-import Burger from "./burger";
+import { Box, Menu } from '@mui/material';
+import React from 'react';
+import HeaderNavigation from '../header/headerNavigation';
+import Tittle from '../header/homeLogo';
+import Burger from './burger';
 
 export default function MobileNavigation() {
 
@@ -18,26 +18,26 @@ export default function MobileNavigation() {
 
 	return (
 		<>
-			<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+			<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 				<Burger open={handleOpenNavMenu} />
 				<Menu
 					anchorEl={anchorElNav}
 					anchorOrigin={{
-						vertical: "bottom",
-						horizontal: "left",
+						vertical: 'bottom',
+						horizontal: 'left',
 					}}
 					open={Boolean(anchorElNav)}
 					onClose={handleCloseNavMenu}
 					sx={{
-						display: { xs: "block", md: "none" },
+						display: { xs: 'block', md: 'none' },
 					}}
 				>
-					<Navigation close={handleCloseNavMenu} />
+					<HeaderNavigation close={handleCloseNavMenu} />
 				</Menu>
 			</Box>
 			<Tittle style={{
 				flexGrow: 1,
-				display: { xs: "none", sm: "flex", md: "none" }
+				display: { xs: 'none', sm: 'flex', md: 'none' }
 			}} />
 		</>
 	)

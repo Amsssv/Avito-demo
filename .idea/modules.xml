@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Avito-demo.iml" filepath="$PROJECT_DIR$/.idea/Avito-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../Menu__burger/.idea/Menu__burger.iml" filepath="$PROJECT_DIR$/../../Menu__burger/.idea/Menu__burger.iml" />
     </modules>
   </component>
 </project>

@@ -1,15 +1,15 @@
-import {addCard} from "../actions"
+import {addCard} from '../actions'
 
 const request = (title, imageUrl, isFavorite, price, description, data) => {
     return new Promise((resolve) => {
-        const url = new URL("http://localhost:3000/items");
-        url.searchParams.append("title", title);
-        url.searchParams.append("imageUrl", imageUrl);
-        url.searchParams.append("isFavorite", isFavorite);
-        url.searchParams.append("price", price);
-        url.searchParams.append("description", description);
+        const url = new URL('http://localhost:3000/items');
+        url.searchParams.append('title', title);
+        url.searchParams.append('imageUrl', imageUrl);
+        url.searchParams.append('isFavorite', isFavorite);
+        url.searchParams.append('price', price);
+        url.searchParams.append('description', description);
         fetch(url, {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'

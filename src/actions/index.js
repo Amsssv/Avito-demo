@@ -1,4 +1,4 @@
-import {FILTER_PRICE, SORT, PAGINATE, GETITEMS, ADDCARD} from "./types"
+import {FILTER_PRICE, SORT, PAGINATE, GETITEMS, ADDCARD} from './types'
 
 export const filterPrice = (minPrice = null, maxPrice = null) => {
     return {

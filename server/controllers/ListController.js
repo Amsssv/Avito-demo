@@ -1,5 +1,5 @@
 import {ListModel} from '../models';
-import fs from "fs";
+import fs from 'fs';
 
 class ListController {
     constructor() {
@@ -25,7 +25,7 @@ class ListController {
     async addItem(req, res) {
         try {
             const {title, imageUrl, isFavorite, price, description} = req.query;
-            const base64Data = req.body.img.replace(/^data:image\/jpeg+;base64,/, "");
+            const base64Data = req.body.img.replace(/^data:image\/jpeg+;base64,/, '');
             let imageName = req.body.name;
 
             fs.writeFile(`./images/${imageName}`, base64Data, 'base64', (err) => console.log(err));
